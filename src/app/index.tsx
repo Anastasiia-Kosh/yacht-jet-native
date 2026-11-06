@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
@@ -15,9 +16,11 @@ export default function Index() {
           Discover unforgettable sailing trips, explore beautiful destinations
           and find the perfect yacht for your journey
         </Text>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Explore Trips</Text>
-        </Pressable>
+        <Link href="/trips" asChild>
+          <Pressable style={styles.button}>
+            <Text style={styles.buttonText}>Explore Trips</Text>
+          </Pressable>
+        </Link>
       </View>
     </View>
   );
@@ -32,7 +35,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: "rgba(0, 0, 0, 0.1)",
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -41,13 +44,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#102A43",
-    marginBottom: 12,
+    marginBottom: 20,
   },
   logo: {
     fontSize: 32,
     fontWeight: "bold",
     color: "#102A43",
-    marginBottom: 20,
+    marginBottom: 40,
   },
   subtitle: {
     color: "#3d6182",
@@ -57,9 +60,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#102A43",
     paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingHorizontal: 46,
     borderRadius: 8,
-    marginTop: 20,
+    marginTop: 180,
   },
   buttonText: {
     color: "white",
