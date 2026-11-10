@@ -17,31 +17,33 @@ export default function Trips() {
         pathname: "/trip/[id]",
         params: { id: item.id },
       }}
-      style={styles.item}
+      asChild
     >
-      <Image
-        source={item.img}
-        style={[
-          StyleSheet.absoluteFill,
-          {
-            width: "100%",
-            height: "100%",
-            borderRadius: 10,
-          },
-        ]}
-        resizeMode="cover"
-      />
-      <View style={styles.context}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
-        <Text
-          style={styles.itemPrice}
-        >{`$${item.price.toLocaleString("en-US")}`}</Text>
-      </View>
+      <Pressable style={styles.item}>
+        <Image
+          source={item.img}
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              width: "100%",
+              height: "100%",
+              borderRadius: 10,
+            },
+          ]}
+          resizeMode="cover"
+        />
+
+        <View style={styles.context}>
+          <Text style={styles.itemTitle}>{item.title}</Text>
+          <Text style={styles.itemPrice}>
+            {`$${item.price.toLocaleString("en-US")}`}
+          </Text>
+        </View>
+      </Pressable>
     </Link>
   );
   return (
     <View style={styles.background}>
-      <Text style={styles.title}>Explore sea trips</Text>
       <FlatList
         data={trips}
         renderItem={tripItem}
@@ -49,10 +51,40 @@ export default function Trips() {
         showsVerticalScrollIndicator={false}
         style={{ width: "100%" }}
         contentContainerStyle={styles.itemList}
+        ListHeaderComponent={
+          <View>
+            <Text style={styles.title}>Explore sea trips</Text>
+
+            <View style={styles.description}>
+              <Text style={styles.paragraph}>
+                Explore our offers below and find the trip that perfectly
+                matches your preferences.
+              </Text>
+
+              <Text style={styles.paragraph}>
+                Whether you're dreaming of a relaxing getaway or an exciting
+                sailing adventure, our experienced team is here to make your
+                journey smooth, comfortable, and unforgettable.
+              </Text>
+
+              <Text style={styles.paragraph}>
+                Our yachts combine elegant design, modern comfort, and
+                functionality to make every moment at sea special.
+              </Text>
+
+              <Text style={styles.paragraph2}>
+                Choose your destination, book your trip, and get ready for an
+                unforgettable adventure!
+              </Text>
+            </View>
+          </View>
+        }
+        ListFooterComponent={
+          <Pressable onPress={() => router.back()} style={styles.buttonBack}>
+            <Text style={styles.buttonBackText}>← Go back</Text>
+          </Pressable>
+        }
       />
-      <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-        <Text style={styles.buttonBackText}>← Go back</Text>
-      </Pressable>
     </View>
   );
 }
@@ -60,14 +92,15 @@ export default function Trips() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingVertical: 24,
+    paddingTop: 24,
+    paddingBottom: 48,
     backgroundColor: "rgba(232, 240, 247, 1.00)",
   },
   buttonBack: {
-    paddingVertical: 12,
+    paddingVertical: 8,
     paddingHorizontal: 24,
   },
   buttonBackText: {
@@ -80,14 +113,28 @@ const styles = StyleSheet.create({
     color: "#102A43",
     marginBottom: 18,
   },
+  description: {
+    gap: 12,
+  },
+  paragraph: {
+    fontSize: 15,
+    lineHeight: 24,
+    color: "#627D98",
+  },
+  paragraph2: {
+    fontSize: 15,
+    lineHeight: 24,
+    color: "#627D98",
+    fontWeight: "bold",
+  },
   itemList: {
     gap: 24,
   },
   item: {
+    width: "100%",
     height: 340,
     position: "relative",
     alignItems: "center",
-    padding: 14,
   },
   context: {
     backgroundColor: "rgba(255, 255, 255, 0.8)",

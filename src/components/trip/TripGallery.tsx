@@ -29,7 +29,7 @@ export default function TripGallery({ trip }: { trip: TripItem }) {
   return (
     <View style={styles.gallery}>
       <View style={styles.divider} />
-      <Text style={styles.galleryTitle}>Explore Our Yacht</Text>
+      <Text style={styles.galleryTitle}>Explore our yacht</Text>
       <View
         style={{ width: "100%" }}
         onLayout={(event) => setGalleryWidth(event.nativeEvent.layout.width)}
