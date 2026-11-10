@@ -2,7 +2,7 @@ import { TripItem } from "@/data/trips";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function TripHero({ trip }: { trip: TripItem }) {
+export default function TripDetails({ trip }: { trip: TripItem }) {
   return (
     <View style={styles.details}>
       <View style={styles.locationContainer}>
