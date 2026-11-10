@@ -111,24 +111,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  //   itemDescr: {
-  //     color: "#102A43",
-  //     fontSize: 16,
-  //   },
-  // itemImage: {
-  //   width: "100%",
-  //   height: 240,
-  //   borderRadius: 10,
-  // },
-  //   buttonMore: {
-  //     backgroundColor: "#102A43",
-  //     paddingVertical: 12,
-  //     borderRadius: 8,
-  //     boxShadow: "2px 2px 3px 1px rgba(5, 13, 21, 0.2)",
-  //   },
-  //   buttonTextMore: {
-  //     color: "white",
-  //     fontSize: 16,
-  //     textAlign: "center",
-  //   },
 });

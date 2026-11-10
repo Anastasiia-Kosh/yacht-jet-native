@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "rgba(255, 255, 255, 0.1)",
     flex: 1,
     paddingTop: 40,
-    paddingBottom: 60,
+    paddingBottom: 120,
     paddingHorizontal: 20,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     color: "#213445",
     textAlign: "center",
     fontSize: 16,
-    width: "85%",
   },
   button: {
     backgroundColor: "#102A43",

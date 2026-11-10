@@ -1,39 +1,41 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import TripAbout from "@/components/trip/TripAbout";
+import TripDetails from "@/components/trip/TripDetails";
+import TripHero from "@/components/trip/TripHero";
+import { useLocalSearchParams } from "expo-router";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { trips } from "../../data/trips";
-
 
 export default function Trip() {
   const { id } = useLocalSearchParams();
   const trip = trips.find((trip) => trip.id === id);
-  return (
-    <View style={styles.background}>
-      <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-        <Text style={styles.buttonBackText}>← Go back</Text>
-      </Pressable>
-      {trip ? (
-        <Text>Trip Name: {trip.title}</Text>
-      ) : (
+
+  if (!trip) {
+    return (
+      <View style={styles.background}>
         <Text>Trip not found</Text>
-      )}
-    </View>
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView
+      style={styles.background}
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
+      <TripHero image={trip.img} />
+      <TripDetails trip={trip} />
+      <TripAbout description={trip.description} image={trip.imgDescr} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "#f0f4f8",
+    backgroundColor: "#F0F4F8",
   },
-  buttonBack: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-  },
-  buttonBackText: {
-    color: "#102A43",
-    fontSize: 16,
+  scrollContent: {
+    paddingBottom: 30,
   },
 });
