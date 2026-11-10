@@ -1,10 +1,10 @@
 import TripAbout from "@/components/trip/TripAbout";
 import TripDetails from "@/components/trip/TripDetails";
+import TripGallery from "@/components/trip/TripGallery";
 import TripHero from "@/components/trip/TripHero";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { trips } from "../../data/trips";
-import TripGallery from "@/components/trip/TripGallery";
 
 export default function Trip() {
   const { id } = useLocalSearchParams();
@@ -28,14 +28,14 @@ export default function Trip() {
       <TripDetails trip={trip} />
       <TripAbout description={trip.description} image={trip.imgDescr} />
       <TripGallery trip={trip} />
-      </ScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
+    backgroundColor: "rgba(232, 240, 247, 1.00)",
   },
   scrollContent: {
     paddingBottom: 30,

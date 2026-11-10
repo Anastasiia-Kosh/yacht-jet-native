@@ -17,6 +17,7 @@ export default function TripAbout({
         <Text style={styles.aboutTitle}>About this trip</Text>
         <Text style={styles.aboutDescription}>{description}</Text>
       </View>
+      
     </>
   );
 }

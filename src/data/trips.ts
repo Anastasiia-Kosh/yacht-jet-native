@@ -1,6 +1,6 @@
 import type { ImageSourcePropType } from "react-native";
 
-type GalleryItem = {
+export type GalleryItem = {
   id: string;
   title: string;
   description: string;

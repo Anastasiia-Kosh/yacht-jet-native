@@ -41,9 +41,6 @@ export default function Trips() {
   );
   return (
     <View style={styles.background}>
-      <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-        <Text style={styles.buttonBackText}>← Go back</Text>
-      </Pressable>
       <Text style={styles.title}>Explore sea trips</Text>
       <FlatList
         data={trips}
@@ -53,6 +50,9 @@ export default function Trips() {
         style={{ width: "100%" }}
         contentContainerStyle={styles.itemList}
       />
+      <Pressable onPress={() => router.back()} style={styles.buttonBack}>
+        <Text style={styles.buttonBackText}>← Go back</Text>
+      </Pressable>
     </View>
   );
 }
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#f0f4f8",
+    paddingVertical: 24,
+    backgroundColor: "rgba(232, 240, 247, 1.00)",
   },
   buttonBack: {
     paddingVertical: 12,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#102A43",
-    marginBottom: 20,
+    marginBottom: 18,
   },
   itemList: {
     gap: 24,

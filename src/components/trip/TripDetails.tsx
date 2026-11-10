@@ -50,7 +50,7 @@ export default function TripDetails({ trip }: { trip: TripItem }) {
 const styles = StyleSheet.create({
   details: {
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingVertical: 24,
   },
   locationContainer: {
     flexDirection: "row",
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
   features: {
     flexDirection: "row",
     gap: 10,
-    marginBottom: 24,
   },
   featureItem: {
     flex: 1,
