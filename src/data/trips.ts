@@ -1,36 +1,5 @@
-import type { ImageSourcePropType } from "react-native";
+import { TripItem } from "@/types/trip";
 
-export type GalleryItem = {
-  id: string;
-  title: string;
-  description: string;
-  image: ImageSourcePropType;
-};
-export type ReviewItem = {
-  id: string;
-  tripId: string;
-  name: string;
-  country: string;
-  date: string;
-  rating: number;
-  title: string;
-  text: string;
-  avatar: ImageSourcePropType;
-};
-export type TripItem = {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  location: string;
-  duration: string;
-  maxGuests: number;
-  yachtType: string;
-  img: ImageSourcePropType;
-  imgDescr: ImageSourcePropType;
-  gallery: GalleryItem[];
-  reviews: ReviewItem[]
-};
 
 export const trips: TripItem[] = [
   {

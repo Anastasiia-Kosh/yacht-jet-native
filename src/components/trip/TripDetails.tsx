@@ -1,4 +1,4 @@
-import { TripItem } from "@/data/trips";
+import type{ TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 

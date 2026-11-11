@@ -1,4 +1,4 @@
-import { TripItem } from "@/data/trips";
+import type { TripItem } from "@/types/trip";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function TripAbout({

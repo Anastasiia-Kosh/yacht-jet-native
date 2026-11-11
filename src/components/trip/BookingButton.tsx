@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type BookingButtonProps = {
   tripId: string;
@@ -14,13 +14,18 @@ export default function BookingButton({ tripId }: BookingButtonProps) {
   };
 
   return (
-    <Pressable style={styles.button} onPress={handleBooking}>
-      <Text style={styles.buttonText}>Book This Trip</Text>
-    </Pressable>
+    <View style={styles.container}>
+      <Pressable style={styles.button} onPress={handleBooking}>
+        <Text style={styles.buttonText}>Book This Trip</Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
   button: {
     backgroundColor: "#102A43",
     paddingVertical: 14,

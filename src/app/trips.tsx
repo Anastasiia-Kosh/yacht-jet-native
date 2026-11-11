@@ -1,4 +1,5 @@
-import { TripItem, trips } from "@/data/trips";
+import { trips } from "@/data/trips";
+import type { TripItem } from "@/types/trip";
 import { Link, router } from "expo-router";
 import {
     FlatList,

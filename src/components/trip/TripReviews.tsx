@@ -1,4 +1,4 @@
-import type { ReviewItem, TripItem } from "@/data/trips";
+import type { ReviewItem, TripItem } from "@/types/trip";
 import { useState } from "react";
 import {
   FlatList,
