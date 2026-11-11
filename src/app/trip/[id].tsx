@@ -5,6 +5,7 @@ import TripHero from "@/components/trip/TripHero";
 import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { trips } from "../../data/trips";
+import TripReviews from "@/components/trip/TripReviews";
 
 export default function Trip() {
   const { id } = useLocalSearchParams();
@@ -33,6 +34,7 @@ export default function Trip() {
       <TripDetails trip={trip} />
       <TripAbout description={trip.description} image={trip.imgDescr} />
       <TripGallery trip={trip} />
+      <TripReviews trip={trip} />
     </ScrollView>
   );
 }

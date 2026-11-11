@@ -6,7 +6,17 @@ export type GalleryItem = {
   description: string;
   image: ImageSourcePropType;
 };
-
+export type ReviewItem = {
+  id: string;
+  tripId: string;
+  name: string;
+  country: string;
+  date: string;
+  rating: number;
+  title: string;
+  text: string;
+  avatar: ImageSourcePropType;
+};
 export type TripItem = {
   id: string;
   title: string;
@@ -19,6 +29,7 @@ export type TripItem = {
   img: ImageSourcePropType;
   imgDescr: ImageSourcePropType;
   gallery: GalleryItem[];
+  reviews: ReviewItem[]
 };
 
 export const trips: TripItem[] = [
@@ -64,6 +75,41 @@ export const trips: TripItem[] = [
           "An inviting outdoor dining area at the stern of the yacht, sheltered by an elegant canopy. Enjoy a meal in the open air as the sun sets over the rugged Mediterranean coastline, with the sea breeze and warm evening light setting the mood.",
       },
     ],
+    reviews: [
+        {
+    id: "review-1",
+    tripId: "1",
+    name: "Emily Johnson",
+    country: "United States",
+    date: "August 2026",
+    rating: 5,
+    title: "A dream come true!",
+    text: "The Amalfi Coast was absolutely breathtaking! We loved exploring charming seaside villages, swimming in crystal-clear water, and enjoying beautiful sunsets from the yacht. The crew made us feel welcome from the very first day.",
+    avatar: require("../../assets/images/trips/reviews/Emily-Johnson.webp"),
+  },
+  {
+    id: "review-2",
+    tripId: "1",
+    name: "Daniel Wilson",
+    country: "United Kingdom",
+    date: "July 2026",
+    rating: 5,
+    title: "The perfect Mediterranean getaway",
+    text: "Everything was beautifully organized. The yacht was comfortable, the food was delicious, and every stop along the coast was more beautiful than the last. A wonderful way to discover Italy!",
+    avatar: require("../../assets/images/trips/reviews/Daniel-Wilson.webp"),
+  },
+  {
+    id: "review-3",
+    tripId: "1",
+    name: "Sophie Martin",
+    country: "France",
+    date: "June 2026",
+    rating: 4,
+    title: "Beautiful views and great memories",
+    text: "We had an amazing week sailing along the Amalfi Coast. The scenery was unforgettable, and we especially enjoyed the peaceful mornings on deck. It was a little hard to say goodbye!",
+    avatar: require("../../assets/images/trips/reviews/Sophie-Martin.webp"),
+  },
+    ]
   },
   {
     id: "2",
@@ -107,6 +153,41 @@ export const trips: TripItem[] = [
           "An intimate outdoor dining space in the yacht's cockpit, perfect for relaxed meals and evenings under the stars. A solid teak table, comfortable seating, and warm ambient lighting create a welcoming setting, with views of a palm-fringed Caribbean atoll.",
       },
     ],
+    reviews: [
+      {
+    id: "review-4",
+    tripId: "2",
+    name: "Olivia Brown",
+    country: "Canada",
+    date: "August 2026",
+    rating: 5,
+    title: "Paradise on the water!",
+    text: "The Caribbean was everything we imagined and more. Beautiful beaches, warm turquoise water, and fantastic snorkeling spots. The yacht was lovely, and the crew made the whole trip feel effortless.",
+    avatar: require("../../assets/images/trips/reviews/Olivia-Brown.webp"),
+  },
+  {
+    id: "review-5",
+    tripId: "2",
+    name: "James Taylor",
+    country: "Australia",
+    date: "July 2026",
+    rating: 5,
+    title: "An unforgettable adventure",
+    text: "Every day brought something new. We explored hidden bays, enjoyed amazing local food, and spent hours swimming in the warm sea. The sailing experience was fantastic!",
+    avatar: require("../../assets/images/trips/reviews/James-Taylor.webp"),
+  },
+  {
+    id: "review-6",
+    tripId: "2",
+    name: "Isabella Garcia",
+    country: "Spain",
+    date: "June 2026",
+    rating: 4,
+    title: "A perfect tropical escape",
+    text: "A wonderful combination of adventure and relaxation. The yacht was comfortable, and the Caribbean sunsets were simply magical. I would definitely recommend this trip!",
+    avatar: require("../../assets/images/trips/reviews/Isabella-Garcia.webp"),
+  },
+    ]
   },
   {
     id: "3",
@@ -150,6 +231,41 @@ export const trips: TripItem[] = [
           "A sheltered dining area at the stern, designed for comfort in Alaska's cold climate. Transparent weather-protective enclosures and infrared heaters make it possible to enjoy the surrounding scenery even in chilly conditions. Take in the dramatic Alaskan landscape from a warm and cozy space.",
       },
     ],
+    reviews: [
+       {
+    id: "review-7",
+    tripId: "3",
+    name: "Michael Anderson",
+    country: "United States",
+    date: "September 2026",
+    rating: 5,
+    title: "Nature at its most spectacular",
+    text: "Seeing glaciers and snow-covered mountains from the water was an incredible experience. We were lucky enough to spot whales during our journey. The yacht was warm and comfortable, even in the chilly weather.",
+    avatar: require("../../assets/images/trips/reviews/Michael-Anderson.webp"),
+  },
+  {
+    id: "review-8",
+    tripId: "3",
+    name: "Charlotte Evans",
+    country: "United Kingdom",
+    date: "August 2026",
+    rating: 5,
+    title: "An adventure we'll never forget",
+    text: "Alaska exceeded all our expectations. The landscapes were breathtaking, and every day offered something different. We loved the observation lounge and the opportunity to watch wildlife from the yacht.",
+    avatar: require("../../assets/images/trips/reviews/Charlotte-Evans.webp"),
+  },
+  {
+    id: "review-9",
+    tripId: "3",
+    name: "Lucas Schneider",
+    country: "Germany",
+    date: "July 2026",
+    rating: 4,
+    title: "A unique sailing experience",
+    text: "A fantastic trip for anyone who loves nature and adventure. The scenery was incredible, and the expedition atmosphere made the journey feel truly special. Don't forget warm clothes!",
+    avatar: require("../../assets/images/trips/reviews/Lucas-Schneider.webp"),
+  },
+    ]
   },
   {
     id: "4",
@@ -193,6 +309,41 @@ export const trips: TripItem[] = [
           "An inviting dining area nestled between the catamaran's hulls at the bow, just beyond the forward nets. Enjoy meals with panoramic views of turquoise lagoons and tropical atolls. As the sun sets, warm golden light transforms this open-air space into a perfect setting for a memorable evening.",
       },
     ],
+    reviews: [
+       {
+    id: "review-10",
+    tripId: "4",
+    name: "Amelia Wilson",
+    country: "New Zealand",
+    date: "August 2026",
+    rating: 5,
+    title: "Pure relaxation in paradise",
+    text: "French Polynesia is even more beautiful in person! We spent our days swimming in turquoise lagoons, enjoying delicious meals, and relaxing on the yacht. Everything felt peaceful and perfectly organized.",
+    avatar: require("../../assets/images/trips/reviews/Amelia-Wilson.webp"),
+  },
+  {
+    id: "review-11",
+    tripId: "4",
+    name: "Benjamin Clark",
+    country: "United States",
+    date: "July 2026",
+    rating: 5,
+    title: "The ultimate tropical escape",
+    text: "The catamaran was spacious and beautiful, with amazing views from every corner. Our favorite moments were dining outdoors and watching the sunset over the lagoons. We didn't want the trip to end!",
+    avatar: require("../../assets/images/trips/reviews/Benjamin-Clark.webp"),
+  },
+  {
+    id: "review-12",
+    tripId: "4",
+    name: "Emma Laurent",
+    country: "France",
+    date: "June 2026",
+    rating: 4,
+    title: "A beautiful island experience",
+    text: "A lovely journey through some of the most beautiful islands we've ever seen. The water was unbelievably clear, and the yacht offered plenty of space to relax. A truly memorable holiday.",
+    avatar: require("../../assets/images/trips/reviews/Emma-Laurent.webp"),
+  },
+    ]
   },
   {
     id: "5",
@@ -236,5 +387,40 @@ export const trips: TripItem[] = [
           "A cozy outdoor lounge beneath the wooden canopy of the traditional deckhouse. A solid polished teak table and cushioned benches provide a comfortable place to relax and dine. Enjoy views of a historic European harbor, with evening sunlight illuminating the waterfront towers and the schooner's rigging overhead.",
       },
     ],
+    reviews: [
+      {
+    id: "review-13",
+    tripId: "5",
+    name: "Alexander Moore",
+    country: "United Kingdom",
+    date: "September 2026",
+    rating: 5,
+    title: "History, culture, and sailing",
+    text: "A wonderful way to explore Northern Europe. Stockholm, Helsinki, and Tallinn each had their own charm. We especially enjoyed the atmosphere aboard the classic sailing vessel. It felt like stepping into another era!",
+    avatar: require("../../assets/images/trips/reviews/Alexander-Moore.webp"),
+  },
+  {
+    id: "review-14",
+    tripId: "5",
+    name: "Anna Fischer",
+    country: "Germany",
+    date: "August 2026",
+    rating: 5,
+    title: "A journey full of discoveries",
+    text: "We loved the combination of beautiful cities and relaxing time at sea. The yacht had so much character, and the journey was a wonderful balance of sightseeing, culture, and comfort.",
+    avatar: require("../../assets/images/trips/reviews/Anna-Fischer.webp"),
+  },
+  {
+    id: "review-15",
+    tripId: "5",
+    name: "Oliver Smith",
+    country: "Canada",
+    date: "July 2026",
+    rating: 4,
+    title: "A charming Northern European cruise",
+    text: "The Baltic Sea was a fantastic surprise. Beautiful architecture, fascinating history, and lovely views along the way. The classic yacht made the whole experience even more special.",
+    avatar: require("../../assets/images/trips/reviews/Oliver-Smith.webp"),
+  },
+    ]
   },
 ];
