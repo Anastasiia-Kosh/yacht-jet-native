@@ -4,7 +4,11 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function BookingForm() {
+type BookingFormProps = {
+  onSubmit: (data: BookingFormData) => void;
+};
+
+export default function BookingForm({ onSubmit }: BookingFormProps) {
   const {
     control,
     handleSubmit,
@@ -23,10 +27,6 @@ export default function BookingForm() {
   const [focusedField, setFocusedField] = useState<
     keyof BookingFormData | null
   >(null);
-
-  const onSubmit = (data: BookingFormData) => {
-    console.log(data);
-  };
 
   return (
     <View style={styles.formContainer}>

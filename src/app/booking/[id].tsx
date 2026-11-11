@@ -1,7 +1,9 @@
 import BookingForm from "@/components/booking/BookingForm";
+import BookingSuccessModal from "@/components/booking/BookingSuccessModal";
 import { trips } from "@/data/trips";
+import type { BookingFormData } from "@/schemas/bookingSchema";
 import { Ionicons } from "@expo/vector-icons";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 
 import {
@@ -12,14 +14,29 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
 
 export default function Booking() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const trip = trips.find((trip) => trip.id === id);
 
+  const [firstName, setFirstName] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleBooking = (data: BookingFormData) => {
+    console.log(data);
+    setFirstName(data.firstName);
+    setIsModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+
+    router.replace({
+      pathname: "/trip/[id]",
+      params: { id },
+    });
+  };
 
   if (!trip) {
     return (
@@ -61,7 +78,13 @@ export default function Booking() {
             </Text>
           </View>
           <Text style={styles.title}>Booking {trip.title} trip </Text>
-          <BookingForm />
+          <BookingForm onSubmit={handleBooking} />
+          <BookingSuccessModal
+            visible={isModalVisible}
+            firstName={firstName}
+            tripTitle={trip.title}
+            onClose={handleCloseModal}
+          />
         </ScrollView>
       </View>
     </KeyboardAvoidingView>
@@ -133,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#213445",
   },
-    title: {
+  title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#102A43",
