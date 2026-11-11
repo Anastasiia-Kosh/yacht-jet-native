@@ -1,11 +1,12 @@
+import BookingButton from "@/components/trip/BookingButton";
 import TripAbout from "@/components/trip/TripAbout";
 import TripDetails from "@/components/trip/TripDetails";
 import TripGallery from "@/components/trip/TripGallery";
 import TripHero from "@/components/trip/TripHero";
+import TripReviews from "@/components/trip/TripReviews";
 import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { trips } from "../../data/trips";
-import TripReviews from "@/components/trip/TripReviews";
 
 export default function Trip() {
   const { id } = useLocalSearchParams();
@@ -16,8 +17,8 @@ export default function Trip() {
       <View style={styles.backgroundNotFound}>
         <Text style={styles.errorText}>Trip not found</Text>
         <Link href="/trips" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>← Choose another trip</Text>
+          <Pressable style={styles.errorButton}>
+            <Text style={styles.errorButtonText}>← Choose another trip</Text>
           </Pressable>
         </Link>
       </View>
@@ -32,6 +33,7 @@ export default function Trip() {
     >
       <TripHero image={trip.img} />
       <TripDetails trip={trip} />
+      <BookingButton tripId={trip.id} />
       <TripAbout description={trip.description} image={trip.imgDescr} />
       <TripGallery trip={trip} />
       <TripReviews trip={trip} />
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(232, 240, 247, 1.00)",
   },
   scrollContent: {
-    paddingBottom: 30,
+    paddingBottom: 48,
   },
   backgroundNotFound: {
     paddingHorizontal: 20,
@@ -60,14 +62,14 @@ const styles = StyleSheet.create({
     color: "#102A43",
     marginBottom: 14,
   },
-  button: {
+  errorButton: {
     backgroundColor: "#102A43",
     paddingVertical: 12,
     paddingHorizontal: 46,
     borderRadius: 8,
     marginTop: 24,
   },
-  buttonText: {
+  errorButtonText: {
     color: "white",
     fontSize: 18,
     textAlign: "center",
