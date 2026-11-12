@@ -2,13 +2,13 @@ import { trips } from "@/data/trips";
 import type { TripItem } from "@/types/trip";
 import { Link, router } from "expo-router";
 import {
-    FlatList,
-    Image,
-    type ListRenderItem,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  FlatList,
+  Image,
+  type ListRenderItem,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 
 export default function Trips() {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 24,
     paddingBottom: 48,
-    backgroundColor: "rgba(232, 240, 247, 1.00)",
+    backgroundColor: "#ECF8FF",
   },
   buttonBack: {
     paddingVertical: 8,

@@ -44,7 +44,7 @@ export default function Trip() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "rgba(232, 240, 247, 1.00)",
+    backgroundColor: "#ECF8FF",
   },
   scrollContent: {
     paddingBottom: 48,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 24,
     flex: 1,
-    backgroundColor: "rgba(232, 240, 247, 1.00)",
+    backgroundColor: "#ECF8FF",
   },
   errorText: {
     textAlign: "center",

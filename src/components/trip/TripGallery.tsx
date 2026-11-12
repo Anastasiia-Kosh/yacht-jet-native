@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   galleryItem: {
-    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
     flexShrink: 0,
   },
