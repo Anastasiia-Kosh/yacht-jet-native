@@ -119,6 +119,7 @@ export default function BookingForm({ onSubmit }: BookingFormProps) {
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
             <TextInput
+              keyboardType="phone-pad"
               placeholder="Phone number"
               placeholderTextColor="#627D98"
               value={value}
