@@ -5,7 +5,6 @@ import type { BookingFormData } from "@/schemas/bookingSchema";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-
 import {
   Image,
   KeyboardAvoidingView,
@@ -16,8 +15,10 @@ import {
   Text,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Booking() {
+  const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
   const trip = trips.find((trip) => trip.id === id);
 
@@ -58,7 +59,7 @@ export default function Booking() {
       <View style={styles.imageContainer}>
         <Image source={trip.img} style={styles.image} resizeMode="cover" />
         <ScrollView
-          style={styles.bookingContainer}
+          style={[styles.bookingContainer, { bottom: insets.bottom + 24 }]}
           contentContainerStyle={styles.bookingContent}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
@@ -135,8 +136,7 @@ const styles = StyleSheet.create({
     top: 20,
     left: 20,
     right: 20,
-    bottom: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
     borderRadius: 10,
   },
   bookingContent: {

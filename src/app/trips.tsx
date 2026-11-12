@@ -10,8 +10,11 @@ import {
   Text,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Trips() {
+  const insets = useSafeAreaInsets();
+
   const tripItem: ListRenderItem<TripItem> = ({ item }) => (
     <Link
       href={{
@@ -51,7 +54,10 @@ export default function Trips() {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         style={{ width: "100%" }}
-        contentContainerStyle={styles.itemList}
+        contentContainerStyle={[
+          styles.itemList,
+          { paddingBottom: insets.bottom + 24 },
+        ]}
         ListHeaderComponent={
           <View>
             <Text style={styles.title}>Explore sea trips</Text>
@@ -97,7 +103,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 24,
-    paddingBottom: 48,
     backgroundColor: "#ECF8FF",
   },
   buttonBack: {

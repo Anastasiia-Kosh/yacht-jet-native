@@ -6,9 +6,11 @@ import TripHero from "@/components/trip/TripHero";
 import TripReviews from "@/components/trip/TripReviews";
 import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { trips } from "../../data/trips";
 
 export default function Trip() {
+  const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams();
   const trip = trips.find((trip) => trip.id === id);
 
@@ -28,7 +30,7 @@ export default function Trip() {
   return (
     <ScrollView
       style={styles.background}
-      contentContainerStyle={styles.scrollContent}
+      contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
       showsVerticalScrollIndicator={false}
     >
       <TripHero image={trip.img} />
@@ -45,9 +47,6 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: "#ECF8FF",
-  },
-  scrollContent: {
-    paddingBottom: 48,
   },
   backgroundNotFound: {
     paddingHorizontal: 20,

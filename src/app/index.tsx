@@ -1,7 +1,10 @@
 import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
+  const insets = useSafeAreaInsets();
+
   return (
     <View style={styles.background}>
       <Image
@@ -9,7 +12,7 @@ export default function Index() {
         style={[StyleSheet.absoluteFill, { width: "100%", height: "100%" }]}
         resizeMode="cover"
       />
-      <View style={styles.content}>
+      <View style={[styles.content, { paddingBottom: insets.bottom + 80 }]}>
         <Image
           source={require("../../assets/images/logo.png")}
           style={styles.logo}
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingTop: 40,
-    paddingBottom: 120,
+    // paddingBottom: 120,
     paddingHorizontal: 20,
     justifyContent: "flex-start",
     alignItems: "center",
