@@ -84,12 +84,13 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   title: {
+    fontFamily: "LoraSemiBoldItalic",
     fontSize: 22,
-    fontWeight: "700",
     color: "#102A43",
     marginBottom: 12,
   },
   description: {
+    fontFamily: "LoraRegular",
     fontSize: 15,
     lineHeight: 24,
     color: "#627D98",
@@ -118,15 +119,17 @@ const styles = StyleSheet.create({
     gap: 3,
   },
   reviewName: {
+    fontFamily: "LoraMedium",
     fontSize: 16,
-    fontWeight: "700",
     color: "#102A43",
   },
   reviewCountry: {
+    fontFamily: "LoraRegular",
     fontSize: 13,
     color: "#627D98",
   },
   reviewDate: {
+    fontFamily: "LoraItalic",
     fontSize: 12,
     color: "#829AB1",
   },
@@ -137,12 +140,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   reviewTitle: {
+    fontFamily: "LoraMedium",
     fontSize: 17,
-    fontWeight: "700",
     color: "#102A43",
     marginBottom: 8,
   },
   reviewText: {
+    fontFamily: "LoraRegular",
     fontSize: 14,
     lineHeight: 22,
     color: "#627D98",

@@ -1,5 +1,6 @@
 import { trips } from "@/data/trips";
 import type { TripItem } from "@/types/trip";
+import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 import {
   FlatList,
@@ -88,7 +89,12 @@ export default function Trips() {
         }
         ListFooterComponent={
           <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-            <Text style={styles.buttonBackText}>← Go back</Text>
+            <Ionicons
+              name="arrow-back-circle-outline"
+              size={20}
+              color="#102A43"
+            />
+            <Text style={styles.buttonBackText}>Go back</Text>
           </Pressable>
         }
       />
@@ -106,16 +112,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#ECF8FF",
   },
   buttonBack: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
     paddingVertical: 8,
     paddingHorizontal: 24,
   },
   buttonBackText: {
+    fontFamily: "LoraRegular",
     color: "#102A43",
     fontSize: 16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "LoraSemiBoldItalic",
+    fontSize: 28,
     color: "#102A43",
     marginBottom: 18,
   },
@@ -126,12 +136,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     color: "#627D98",
+    fontFamily: "LoraRegular",
   },
   paragraph2: {
     fontSize: 15,
     lineHeight: 24,
     color: "#627D98",
-    fontWeight: "bold",
+    fontFamily: "LoraSemiBold",
   },
   itemList: {
     gap: 24,
@@ -157,12 +168,12 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     fontSize: 18,
-    fontWeight: "bold",
     color: "#102A43",
+    fontFamily: "LoraSemiBoldItalic",
   },
   itemPrice: {
     color: "#3d6182",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "LoraSemiBold",
   },
 });

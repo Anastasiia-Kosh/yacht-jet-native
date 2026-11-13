@@ -23,17 +23,11 @@ export default function BookingSuccessModal({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
-          <Ionicons
-            name="checkmark-circle"
-            size={64}
-            color="#2E9D70"
-          />
+          <Ionicons name="checkmark-circle" size={64} color="#2E9D70" />
 
           <Text style={styles.title}>Booking successful!</Text>
 
-          <Text style={styles.message}>
-            Thank you, {firstName}!
-          </Text>
+          <Text style={styles.message}>Thank you, {firstName}!</Text>
 
           <Text style={styles.description}>
             Your booking request "{tripTitle}" has been received.
@@ -66,17 +60,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "LoraSemiBoldItalic",
     color: "#102A43",
     textAlign: "center",
   },
   message: {
+    fontFamily: "LoraRegular",
     fontSize: 18,
-    fontWeight: "600",
     color: "#102A43",
     textAlign: "center",
   },
   description: {
+    fontFamily: "LoraRegular",
     fontSize: 15,
     lineHeight: 22,
     color: "#486581",
@@ -93,6 +88,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "LoraSemiBold",
   },
 });

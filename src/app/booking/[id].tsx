@@ -45,7 +45,12 @@ export default function Booking() {
         <Text style={styles.errorText}>Trip not found</Text>
         <Link href="/trips" asChild>
           <Pressable style={styles.errorButton}>
-            <Text style={styles.errorButtonText}>← Choose another trip</Text>
+            <Ionicons
+              name="arrow-back-circle-outline"
+              size={20}
+              color="#FFFFFF"
+            />
+            <Text style={styles.errorButtonText}>Choose another trip</Text>
           </Pressable>
         </Link>
       </View>
@@ -102,11 +107,15 @@ const styles = StyleSheet.create({
   errorText: {
     textAlign: "center",
     fontSize: 28,
-    fontWeight: "bold",
+    fontFamily: "LoraSemiBoldItalic",
     color: "#102A43",
     marginBottom: 14,
   },
   errorButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
     backgroundColor: "#102A43",
     paddingVertical: 12,
     paddingHorizontal: 46,
@@ -114,7 +123,8 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   errorButtonText: {
-    color: "white",
+    fontFamily: "LoraSemiBold",
+    color: "#FFFFFF",
     fontSize: 18,
     textAlign: "center",
   },
@@ -152,13 +162,14 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   feature: {
+    fontFamily: "LoraMedium",
     flex: 1,
     fontSize: 15,
     color: "#213445",
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "LoraSemiBoldItalic",
     color: "#102A43",
     textAlign: "center",
     marginTop: 32,

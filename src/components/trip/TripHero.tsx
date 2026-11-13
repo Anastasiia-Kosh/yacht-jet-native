@@ -9,7 +9,7 @@ export default function TripHero({ image }: { image: TripItem["img"] }) {
       <Image source={image} style={styles.image} resizeMode="cover" />
 
       <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-        <Ionicons name="arrow-back" size={20} color="#102A43" />
+        <Ionicons name="arrow-back-circle-outline" size={20} color="#102A43" />
         <Text style={styles.buttonBackText}>Go back</Text>
       </Pressable>
     </View>
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
   buttonBackText: {
     color: "#102A43",
     fontSize: 15,
-    fontWeight: "600",
+    fontFamily: "LoraRegular",
   },
 });

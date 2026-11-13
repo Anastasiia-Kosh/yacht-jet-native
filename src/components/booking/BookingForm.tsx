@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
+    fontFamily: "LoraMedium",
     backgroundColor: "#FFFFFF",
     borderRadius: 8,
     paddingHorizontal: 14,
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
     borderColor: "#D32F2F",
   },
   errorMessage: {
+    fontFamily: "LoraRegular",
     color: "#D32F2F",
     fontSize: 13,
     marginTop: 4,
@@ -188,6 +190,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: "600",
+    fontFamily: "LoraSemiBold",
   },
 });

@@ -1,4 +1,4 @@
-import type{ TripItem } from "@/types/trip";
+import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -59,13 +59,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   location: {
+    fontFamily: "LoraMedium",
     flex: 1,
     fontSize: 14,
     color: "#627D98",
   },
   title: {
+    fontFamily: "LoraSemiBoldItalic",
     fontSize: 28,
-    fontWeight: "700",
     color: "#102A43",
     marginBottom: 16,
   },
@@ -75,11 +76,12 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   price: {
-    fontSize: 30,
-    fontWeight: "700",
+    fontFamily: "LoraMedium",
+    fontSize: 26,
     color: "#102A43",
   },
   priceLabel: {
+    fontFamily: "LoraMedium",
     fontSize: 14,
     color: "#829AB1",
     marginLeft: 6,
@@ -112,13 +114,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   featureLabel: {
+    fontFamily: "LoraMedium",
     fontSize: 12,
     color: "#829AB1",
     marginBottom: 6,
   },
   featureValue: {
+    fontFamily: "LoraSemiBold",
     fontSize: 13,
-    fontWeight: "600",
     color: "#102A43",
     textAlign: "center",
   },

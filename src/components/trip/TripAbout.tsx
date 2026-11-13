@@ -17,7 +17,6 @@ export default function TripAbout({
         <Text style={styles.aboutTitle}>About this trip</Text>
         <Text style={styles.aboutDescription}>{description}</Text>
       </View>
-      
     </>
   );
 }
@@ -36,12 +35,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   aboutTitle: {
+    fontFamily: "LoraSemiBoldItalic",
     fontSize: 22,
-    fontWeight: "700",
     color: "#102A43",
     marginBottom: 12,
   },
   aboutDescription: {
+    fontFamily: "LoraRegular",
     fontSize: 15,
     lineHeight: 24,
     color: "#627D98",

@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   galleryTitle: {
+    fontFamily: "LoraSemiBoldItalic",
     fontSize: 22,
-    fontWeight: "700",
     color: "#102A43",
     marginBottom: 12,
   },
@@ -126,15 +126,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   counterText: {
+    fontFamily: "LoraItalic",
     fontSize: 14,
     color: "#888",
   },
   contextTitle: {
+    fontFamily: "LoraMedium",
     fontSize: 16,
-    fontWeight: "600",
     color: "#102A43",
   },
   contextDescr: {
+    fontFamily: "LoraRegular",
     fontSize: 15,
     lineHeight: 24,
     color: "#627D98",
