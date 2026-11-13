@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   buttonText: {
-    fontFamily: "LoraSemiBold",
+    fontFamily: "LoraMedium",
     color: "#FFFFFF",
     fontSize: 18,
   },

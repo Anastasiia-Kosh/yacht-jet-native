@@ -1,5 +1,6 @@
 import BookingButton from "@/components/trip/BookingButton";
 import TripAbout from "@/components/trip/TripAbout";
+import TripAction from "@/components/trip/TripAction";
 import TripDetails from "@/components/trip/TripDetails";
 import TripGallery from "@/components/trip/TripGallery";
 import TripHero from "@/components/trip/TripHero";
@@ -9,6 +10,7 @@ import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { trips } from "../../data/trips";
+import TripRoute from "@/components/trip/TripRoute";
 
 export default function Trip() {
   const insets = useSafeAreaInsets();
@@ -36,15 +38,21 @@ export default function Trip() {
   return (
     <ScrollView
       style={styles.background}
-      contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
+      contentContainerStyle={{
+        paddingBottom: insets.bottom + 24,
+        paddingTop: insets.top + 20,
+      }}
       showsVerticalScrollIndicator={false}
     >
       <TripHero image={trip.img} />
       <TripDetails trip={trip} />
       <BookingButton tripId={trip.id} />
       <TripAbout description={trip.description} image={trip.imgDescr} />
+      <TripRoute/>
       <TripGallery trip={trip} />
       <TripReviews trip={trip} />
+      <TripAction />
+      <BookingButton tripId={trip.id} />
     </ScrollView>
   );
 }
@@ -56,7 +64,7 @@ const styles = StyleSheet.create({
   },
   backgroundNotFound: {
     paddingHorizontal: 20,
-    paddingTop: 24,
+    // paddingTop: 24,
     flex: 1,
     backgroundColor: "#ECF8FF",
   },
@@ -79,7 +87,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   errorButtonText: {
-    fontFamily: "LoraSemiBold",
+    fontFamily: "LoraMedium",
     color: "#FFFFFF",
     fontSize: 18,
     textAlign: "center",

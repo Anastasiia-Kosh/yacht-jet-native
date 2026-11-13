@@ -12,7 +12,12 @@ export default function Index() {
         style={[StyleSheet.absoluteFill, { width: "100%", height: "100%" }]}
         resizeMode="cover"
       />
-      <View style={[styles.content, { paddingBottom: insets.bottom + 80 }]}>
+      <View
+        style={[
+          styles.content,
+          { paddingBottom: insets.bottom + 80, paddingTop: insets.top + 20 },
+        ]}
+      >
         <Image
           source={require("../../assets/images/logo2.png")}
           style={styles.logo}
@@ -41,7 +46,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingTop: 24,
     paddingHorizontal: 20,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -49,13 +53,13 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 70,
-    marginBottom: 28,
+    marginBottom: 24,
   },
   title: {
     fontFamily: "LoraSemiBoldItalic",
     textAlign: "center",
     fontSize: 36,
-    lineHeight: 34,
+    lineHeight: 42,
     color: "#102A43",
     marginBottom: 18,
   },

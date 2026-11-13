@@ -64,7 +64,10 @@ export default function Booking() {
       <View style={styles.imageContainer}>
         <Image source={trip.img} style={styles.image} resizeMode="cover" />
         <ScrollView
-          style={[styles.bookingContainer, { bottom: insets.bottom + 24 }]}
+          style={[
+            styles.bookingContainer,
+            { bottom: insets.bottom + 24, top: insets.top + 20 },
+          ]}
           contentContainerStyle={styles.bookingContent}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   errorButtonText: {
-    fontFamily: "LoraSemiBold",
+    fontFamily: "LoraMedium",
     color: "#FFFFFF",
     fontSize: 18,
     textAlign: "center",
@@ -143,7 +146,6 @@ const styles = StyleSheet.create({
   },
   bookingContainer: {
     position: "absolute",
-    top: 20,
     left: 20,
     right: 20,
     backgroundColor: "rgba(255, 255, 255, 0.6)",

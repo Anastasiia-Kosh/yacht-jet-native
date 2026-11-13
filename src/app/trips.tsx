@@ -57,7 +57,7 @@ export default function Trips() {
         style={{ width: "100%" }}
         contentContainerStyle={[
           styles.itemList,
-          { paddingBottom: insets.bottom + 24 },
+          { paddingBottom: insets.bottom + 24, paddingTop: insets.top + 20 },
         ]}
         ListHeaderComponent={
           <View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 24,
+    // paddingTop: 24,
     backgroundColor: "#ECF8FF",
   },
   buttonBack: {
