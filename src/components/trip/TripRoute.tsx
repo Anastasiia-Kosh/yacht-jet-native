@@ -41,7 +41,13 @@ export default function TripRoute({
         longitude: point.longitude,
       })),
     ) ?? [];
+  const startPointId = itinerary?.[0]?.points[0]?.id;
+  const lastPoint = itinerary?.at(-1)?.points.at(-1);
 
+  const isReturnToStart =
+    startPointId === lastPoint?.id ||
+    (itinerary?.[0]?.points[0].latitude === lastPoint?.latitude &&
+      itinerary?.[0]?.points[0].longitude === lastPoint?.longitude);
   return (
     <View style={styles.route}>
       <View style={styles.divider} />
@@ -76,12 +82,10 @@ export default function TripRoute({
         )}
         {itinerary?.flatMap((day) =>
           day.points
-            .filter((point) => point.id !== "naples-return")
+            .filter((point) => !(isReturnToStart && point === lastPoint))
             .map((point) => {
-              const isStartFinish = point.id === "naples";
-              const isActive = isStartFinish
-                ? selectedDay === 1 || selectedDay === 7
-                : selectedDay === day.day;
+              const isStart = point.id === startPointId;
+              const isActive = selectedDay === day.day;
 
               return (
                 <Marker
@@ -90,36 +94,22 @@ export default function TripRoute({
                     latitude: point.latitude,
                     longitude: point.longitude,
                   }}
-                  title={isStartFinish ? "Naples — Start & Finish" : point.name}
+                  title={isStart ? `${point.name} — Start` : point.name}
                   description={point.description}
-                  onPress={() => {
-                    const targetDay = isStartFinish
-                      ? itinerary.find(
-                          (item) => item.day === (selectedDay === 7 ? 7 : 1),
-                        )
-                      : day;
-
-                    if (targetDay) handleDayChange(targetDay, point);
-                  }}
+                  onPress={() => handleDayChange(day, point)}
                   anchor={{ x: 0.5, y: 0.5 }}
                 >
                   <View
                     style={[
                       styles.marker,
                       isActive && styles.markerActive,
-                      isStartFinish && styles.markerStartFinish,
+                      isStart && styles.markerStart,
                     ]}
                   >
                     <MaterialCommunityIcons
                       name="sail-boat"
                       size={isActive ? 23 : 19}
-                      color={
-                        isStartFinish
-                          ? "#FFFFFF"
-                          : isActive
-                            ? "#FFFFFF"
-                            : "#102A43"
-                      }
+                      color={isStart || isActive ? "#FFFFFF" : "#102A43"}
                     />
                   </View>
                 </Marker>
@@ -225,7 +215,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     borderWidth: 2,
   },
-  markerStartFinish: {
+  markerStart: {
     backgroundColor: "#D9A441",
     borderColor: "#FFFFFF",
     borderWidth: 2,
