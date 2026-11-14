@@ -5,12 +5,12 @@ import TripDetails from "@/components/trip/TripDetails";
 import TripGallery from "@/components/trip/TripGallery";
 import TripHero from "@/components/trip/TripHero";
 import TripReviews from "@/components/trip/TripReviews";
+import TripRoute from "@/components/trip/TripRoute";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { trips } from "../../data/trips";
-import TripRoute from "@/components/trip/TripRoute";
 
 export default function Trip() {
   const insets = useSafeAreaInsets();
@@ -48,7 +48,7 @@ export default function Trip() {
       <TripDetails trip={trip} />
       <BookingButton tripId={trip.id} />
       <TripAbout description={trip.description} image={trip.imgDescr} />
-      <TripRoute/>
+      <TripRoute itinerary={trip.itinerary} />
       <TripGallery trip={trip} />
       <TripReviews trip={trip} />
       <TripAction />

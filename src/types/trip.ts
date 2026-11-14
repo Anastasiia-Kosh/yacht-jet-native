@@ -17,6 +17,33 @@ export type ReviewItem = {
   text: string;
   avatar: ImageSourcePropType;
 };
+export type RoutePoint = {
+  id: string;
+  name: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  activities: RouteActivity[];
+};
+
+export type ItineraryDay = {
+  day: number;
+  title: string;
+  description: string;
+  points: RoutePoint[];
+};
+
+export type RouteActivity =
+  | "swimming"
+  | "restaurant"
+  | "sightseeing"
+  | "scenicViews"
+  | "marina"
+  | "beach"
+  | "hiking"
+  | "shopping"
+  | "snorkeling";
+
 export type TripItem = {
   id: string;
   title: string;
@@ -29,5 +56,6 @@ export type TripItem = {
   img: ImageSourcePropType;
   imgDescr: ImageSourcePropType;
   gallery: GalleryItem[];
-  reviews: ReviewItem[]
+  reviews: ReviewItem[];
+  itinerary: ItineraryDay[];
 };
