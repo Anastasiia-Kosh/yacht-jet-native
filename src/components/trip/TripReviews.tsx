@@ -43,7 +43,7 @@ export default function TripReviews({ trip }: { trip: TripItem }) {
   return (
     <View style={styles.reviews}>
       <View style={styles.divider} />
-      <Text style={styles.title}>Reviews our guest</Text>
+      <Text style={styles.title}>Guest reviews</Text>
       <Text style={styles.description}>
         We’re passionate about creating exceptional sailing experiences and
         making every journey truly special.

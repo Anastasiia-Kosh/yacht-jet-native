@@ -1,9 +1,4 @@
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-
+import { FavoritesProvider } from "@/context/FavoritesContext";
 import {
   Lora_400Regular,
   Lora_400Regular_Italic,
@@ -11,21 +6,16 @@ import {
   Lora_600SemiBold,
   Lora_600SemiBold_Italic,
 } from "@expo-google-fonts/lora";
-
-// import {
-//   DMSans_400Regular,
-//   DMSans_500Medium,
-//   DMSans_700Bold,
-// } from "@expo-google-fonts/dm-sans";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    // DMSansRegular: DMSans_400Regular,
-    // DMSansMedium: DMSans_500Medium,
-    // DMSansBold: DMSans_700Bold,
-
     LoraRegular: Lora_400Regular,
     LoraItalic: Lora_400Regular_Italic,
     LoraMedium: Lora_500Medium,
@@ -45,7 +35,9 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }} />
+      <FavoritesProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </FavoritesProvider>
     </SafeAreaProvider>
   );
 }

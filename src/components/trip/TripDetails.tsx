@@ -16,7 +16,6 @@ export default function TripDetails({ trip }: { trip: TripItem }) {
         <Text style={styles.price}>${trip.price.toLocaleString("en-US")}</Text>
         <Text style={styles.priceLabel}>/ per trip</Text>
       </View>
-
       <View style={styles.divider} />
 
       <View style={styles.features}>
@@ -51,6 +50,7 @@ const styles = StyleSheet.create({
   details: {
     paddingHorizontal: 20,
     paddingVertical: 24,
+    position: "relative",
   },
   locationContainer: {
     flexDirection: "row",

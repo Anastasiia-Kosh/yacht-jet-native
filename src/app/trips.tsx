@@ -1,3 +1,4 @@
+import FavoriteButton from "@/components/trip/FavoriteButton";
 import { trips } from "@/data/trips";
 import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,35 +18,38 @@ export default function Trips() {
   const insets = useSafeAreaInsets();
 
   const tripItem: ListRenderItem<TripItem> = ({ item }) => (
-    <Link
-      href={{
-        pathname: "/trip/[id]",
-        params: { id: item.id },
-      }}
-      asChild
-    >
-      <Pressable style={styles.item}>
-        <Image
-          source={item.img}
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              width: "100%",
-              height: "100%",
-              borderRadius: 10,
-            },
-          ]}
-          resizeMode="cover"
-        />
+    <View style={styles.item}>
+      <Link
+        href={{
+          pathname: "/trip/[id]",
+          params: { id: item.id },
+        }}
+        asChild
+      >
+        <Pressable style={StyleSheet.absoluteFill}>
+          <Image
+            source={item.img}
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                width: "100%",
+                height: "100%",
+                borderRadius: 10,
+              },
+            ]}
+            resizeMode="cover"
+          />
 
-        <View style={styles.context}>
-          <Text style={styles.itemTitle}>{item.title}</Text>
-          <Text style={styles.itemPrice}>
-            {`$${item.price.toLocaleString("en-US")}`}
-          </Text>
-        </View>
-      </Pressable>
-    </Link>
+          <View style={styles.context}>
+            <Text style={styles.itemTitle}>{item.title}</Text>
+            <Text style={styles.itemPrice}>
+              {`$${item.price.toLocaleString("en-US")}`}
+            </Text>
+          </View>
+        </Pressable>
+      </Link>
+      <FavoriteButton tripId={item.id} style={styles.favoriteButton}/>
+    </View>
   );
   return (
     <View style={styles.background}>
@@ -108,7 +112,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
-    // paddingTop: 24,
     backgroundColor: "#ECF8FF",
   },
   buttonBack: {
@@ -116,7 +119,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     paddingVertical: 8,
-    paddingHorizontal: 24,
   },
   buttonBackText: {
     fontFamily: "LoraRegular",
@@ -175,5 +177,10 @@ const styles = StyleSheet.create({
     color: "#3d6182",
     fontSize: 16,
     fontFamily: "LoraSemiBold",
+  },
+  favoriteButton: {
+    position: "absolute",
+    top: 14,
+    right: 14,
   },
 });

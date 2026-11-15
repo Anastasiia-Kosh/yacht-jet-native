@@ -5,11 +5,10 @@ import TripDetails from "@/components/trip/TripDetails";
 import TripGallery from "@/components/trip/TripGallery";
 import TripHero from "@/components/trip/TripHero";
 import TripReviews from "@/components/trip/TripReviews";
-import TripRoute from "@/components/trip/TripRoute";
-import { Ionicons } from "@expo/vector-icons";
-import { Link, useLocalSearchParams } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { ScrollView, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import EmptyState from "../../components/common/EmptyState";
 import { trips } from "../../data/trips";
 
 export default function Trip() {
@@ -19,19 +18,7 @@ export default function Trip() {
 
   if (!trip) {
     return (
-      <View style={styles.backgroundNotFound}>
-        <Text style={styles.errorText}>Trip not found</Text>
-        <Link href="/trips" asChild>
-          <Pressable style={styles.errorButton}>
-            <Ionicons
-              name="arrow-back-circle-outline"
-              size={20}
-              color="#FFFFFF"
-            />
-            <Text style={styles.errorButtonText}>Choose another trip</Text>
-          </Pressable>
-        </Link>
-      </View>
+      <EmptyState title={"Trip not found"} button={"Choose another trip"} />
     );
   }
 
@@ -44,11 +31,10 @@ export default function Trip() {
       }}
       showsVerticalScrollIndicator={false}
     >
-      <TripHero image={trip.img} />
+      <TripHero image={trip.img} tripId={trip.id} />
       <TripDetails trip={trip} />
       <BookingButton tripId={trip.id} />
       <TripAbout description={trip.description} image={trip.imgDescr} />
-      <TripRoute itinerary={trip.itinerary} />
       <TripGallery trip={trip} />
       <TripReviews trip={trip} />
       <TripAction />
@@ -61,35 +47,5 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: "#ECF8FF",
-  },
-  backgroundNotFound: {
-    paddingHorizontal: 20,
-    // paddingTop: 24,
-    flex: 1,
-    backgroundColor: "#ECF8FF",
-  },
-  errorText: {
-    textAlign: "center",
-    fontSize: 28,
-    fontFamily: "LoraSemiBoldItalic",
-    color: "#102A43",
-    marginBottom: 14,
-  },
-  errorButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    backgroundColor: "#102A43",
-    paddingVertical: 12,
-    paddingHorizontal: 46,
-    borderRadius: 8,
-    marginTop: 24,
-  },
-  errorButtonText: {
-    fontFamily: "LoraMedium",
-    color: "#FFFFFF",
-    fontSize: 18,
-    textAlign: "center",
   },
 });

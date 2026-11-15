@@ -2,8 +2,15 @@ import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import FavoriteButton from "./FavoriteButton";
 
-export default function TripHero({ image }: { image: TripItem["img"] }) {
+export default function TripHero({
+  image,
+  tripId,
+}: {
+  image: TripItem["img"];
+  tripId: TripItem["id"];
+}) {
   return (
     <View style={styles.imageContainer}>
       <Image source={image} style={styles.image} resizeMode="cover" />
@@ -12,6 +19,7 @@ export default function TripHero({ image }: { image: TripItem["img"] }) {
         <Ionicons name="arrow-back-circle-outline" size={20} color="#102A43" />
         <Text style={styles.buttonBackText}>Go back</Text>
       </Pressable>
+      <FavoriteButton tripId={tripId} style={styles.favoriteButton} />
     </View>
   );
 }
@@ -28,8 +36,8 @@ const styles = StyleSheet.create({
   },
   buttonBack: {
     position: "absolute",
-    top: 20,
-    left: 20,
+    top: 10,
+    left: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
@@ -42,5 +50,10 @@ const styles = StyleSheet.create({
     color: "#102A43",
     fontSize: 15,
     fontFamily: "LoraRegular",
+  },
+  favoriteButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
   },
 });

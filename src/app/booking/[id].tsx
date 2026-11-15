@@ -3,19 +3,19 @@ import BookingSuccessModal from "@/components/booking/BookingSuccessModal";
 import { trips } from "@/data/trips";
 import type { BookingFormData } from "@/schemas/bookingSchema";
 import { Ionicons } from "@expo/vector-icons";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import EmptyState from "../../components/common/EmptyState";
 
 export default function Booking() {
   const insets = useSafeAreaInsets();
@@ -26,7 +26,6 @@ export default function Booking() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleBooking = (data: BookingFormData) => {
-    console.log(data);
     setFirstName(data.firstName);
     setIsModalVisible(true);
   };
@@ -41,19 +40,10 @@ export default function Booking() {
 
   if (!trip) {
     return (
-      <View style={styles.backgroundNotFound}>
-        <Text style={styles.errorText}>Trip not found</Text>
-        <Link href="/trips" asChild>
-          <Pressable style={styles.errorButton}>
-            <Ionicons
-              name="arrow-back-circle-outline"
-              size={20}
-              color="#FFFFFF"
-            />
-            <Text style={styles.errorButtonText}>Choose another trip</Text>
-          </Pressable>
-        </Link>
-      </View>
+      <EmptyState
+        title={"Trip for book not found"}
+        button={"Choose another trip"}
+      />
     );
   }
   return (
@@ -101,36 +91,6 @@ export default function Booking() {
 }
 
 const styles = StyleSheet.create({
-  backgroundNotFound: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    flex: 1,
-    backgroundColor: "rgba(232, 240, 247, 1.00)",
-  },
-  errorText: {
-    textAlign: "center",
-    fontSize: 28,
-    fontFamily: "LoraSemiBoldItalic",
-    color: "#102A43",
-    marginBottom: 14,
-  },
-  errorButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    backgroundColor: "#102A43",
-    paddingVertical: 12,
-    paddingHorizontal: 46,
-    borderRadius: 8,
-    marginTop: 24,
-  },
-  errorButtonText: {
-    fontFamily: "LoraMedium",
-    color: "#FFFFFF",
-    fontSize: 18,
-    textAlign: "center",
-  },
   booking: {
     flex: 1,
     backgroundColor: "rgba(232, 240, 247, 1.00)",
