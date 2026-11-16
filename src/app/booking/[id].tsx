@@ -42,6 +42,8 @@ export default function Booking() {
     return (
       <EmptyState
         title={"Trip for book not found"}
+        link={"/trips"}
+        nameIcon={"arrow-back-circle-outline"}
         button={"Choose another trip"}
       />
     );

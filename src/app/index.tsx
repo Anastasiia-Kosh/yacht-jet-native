@@ -10,7 +10,7 @@ export default function Index() {
       <Image
         source={require("../../assets/images/hero1.webp")}
         style={[StyleSheet.absoluteFill, { width: "100%", height: "100%" }]}
-        resizeMode="cover"
+        resizeMode="contain"
       />
       <View
         style={[

@@ -1,4 +1,5 @@
 import { FavoritesProvider } from "@/context/FavoritesContext";
+import { ProfileProvider } from "@/context/ProfileContext";
 import {
   Lora_400Regular,
   Lora_400Regular_Italic,
@@ -35,9 +36,11 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <FavoritesProvider>
-        <Stack screenOptions={{ headerShown: false }} />
-      </FavoritesProvider>
+      <ProfileProvider>
+        <FavoritesProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </FavoritesProvider>
+      </ProfileProvider>
     </SafeAreaProvider>
   );
 }

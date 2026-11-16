@@ -8,11 +8,11 @@ export default function NotFoundPage() {
   return (
     <View style={[styles.backgroundNotFound, { paddingTop: insets.top + 20 }]}>
       <Image
-        source={require("../../assets/images/logo2.png")}
+        source={require("../../assets/images/empty.png")}
         style={styles.logo}
-        resizeMode="cover"
+        resizeMode="contain"
       />
-      <Text style={styles.title}>This page not found</Text>
+      <Text style={styles.title}>Page not found</Text>
       <Link href="/" asChild>
         <Pressable style={styles.button}>
           <Ionicons
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 100,
-    height: 70,
-    marginBottom: 32,
+    width: 300,
+    height: 300,
+    marginBottom: 18,
   },
   title: {
     textAlign: "center",

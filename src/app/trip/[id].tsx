@@ -13,12 +13,17 @@ import { trips } from "../../data/trips";
 
 export default function Trip() {
   const insets = useSafeAreaInsets();
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string }>();
   const trip = trips.find((trip) => trip.id === id);
 
   if (!trip) {
     return (
-      <EmptyState title={"Trip not found"} button={"Choose another trip"} />
+      <EmptyState
+        title={"Trip not found"}
+        link={"/trips"}
+        nameIcon={"arrow-back-circle-outline"}
+        button={"Choose another trip"}
+      />
     );
   }
 

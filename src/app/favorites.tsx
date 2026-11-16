@@ -1,13 +1,13 @@
 import FavoriteButton from "@/components/trip/FavoriteButton";
 import { useFavorites } from "@/context/FavoritesContext";
 import { trips } from "@/data/trips";
-import { TripItem } from "@/types/trip";
+import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 import {
   FlatList,
   Image,
-  ListRenderItem,
+  type ListRenderItem,
   Pressable,
   StyleSheet,
   Text,
@@ -26,7 +26,12 @@ export default function Favorites() {
   }
   if (favoriteTrips.length === 0) {
     return (
-      <EmptyState title={"No favorite trips yet"} button={"Explore trips"} />
+      <EmptyState
+        title={"No favorite trips yet"}
+        link={"/trips"}
+        nameIcon={"arrow-forward-circle-outline"}
+        button={"Explore trips"}
+      />
     );
   }
 

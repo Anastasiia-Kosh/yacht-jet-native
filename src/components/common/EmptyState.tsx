@@ -1,30 +1,36 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { type Href, Link } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type EmptyStateProps = {
   title: string;
   button: string;
+  description?: string;
+  nameIcon: keyof typeof Ionicons.glyphMap;
+  link: Href;
 };
 
-export default function EmptyState({ title, button }: EmptyStateProps) {
+export default function EmptyState({
+  title,
+  button,
+  description,
+  nameIcon,
+  link,
+}: EmptyStateProps) {
   const insets = useSafeAreaInsets();
   return (
     <View style={[styles.backgroundNotFound, { paddingTop: insets.top + 20 }]}>
       <Image
-        source={require("../../../assets/images/logo2.png")}
+        source={require("../../../assets/images/empty.png")}
         style={styles.logo}
-        resizeMode="cover"
+        resizeMode="contain"
       />
       <Text style={styles.title}>{title}</Text>
-      <Link href="/trips" asChild>
+      <Text style={styles.description}>{description}</Text>
+      <Link href={link} asChild>
         <Pressable style={styles.button}>
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={20}
-            color="#FFFFFF"
-          />
+          <Ionicons name={nameIcon} size={20} color="#FFFFFF" />
           <Text style={styles.buttonText}>{button}</Text>
         </Pressable>
       </Link>
@@ -40,9 +46,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 100,
-    height: 70,
-    marginBottom: 32,
+    width: 300,
+    height: 300,
+    marginBottom: 18,
   },
   title: {
     textAlign: "center",
@@ -50,6 +56,13 @@ const styles = StyleSheet.create({
     fontFamily: "LoraSemiBoldItalic",
     color: "#102A43",
     marginBottom: 14,
+  },
+  description: {
+    fontSize: 15,
+    lineHeight: 24,
+    color: "#627D98",
+    textAlign: "center",
+    fontFamily: "LoraRegular",
   },
   button: {
     flexDirection: "row",
