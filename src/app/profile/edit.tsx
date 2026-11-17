@@ -30,7 +30,7 @@ export default function ProfileEdit() {
       style={styles.background}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View style={styles.imageContainer}>
+      <View style={styles.container}>
         <Image
           source={require("../../../assets/images/profile/profile.webp")}
           style={styles.image}
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(232, 240, 247, 1.00)",
   },
-  imageContainer: {
+  container: {
     position: "relative",
     width: "100%",
     flex: 1,
@@ -71,8 +71,6 @@ const styles = StyleSheet.create({
   },
   bookingContent: {
     gap: 6,
-    // paddingVertical: 40,
-    // paddingHorizontal: 20,
     alignItems: "center",
     flexGrow: 1,
   },

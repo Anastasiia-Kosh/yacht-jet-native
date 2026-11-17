@@ -28,8 +28,8 @@ export default function Index() {
           Discover unforgettable sailing trips, explore beautiful destinations
           and find the perfect yacht for your journey
         </Text>
-        <Link href="/profile/edit">
-          <Text>Open Profile Form</Text>
+        <Link href="/profile">
+          <Text>Open Profile</Text>
         </Link>
         <Link href="/trips" asChild>
           <Pressable style={styles.button}>

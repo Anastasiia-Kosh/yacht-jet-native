@@ -1,15 +1,18 @@
 import { useProfile } from "@/context/ProfileContext";
 import { ProfileFormData, profileSchema } from "@/schemas/profileSchema";
+import { Ionicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { File, Paths } from "expo-file-system";
+import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
 type ProfileFormProps = {
@@ -22,6 +25,8 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     mode: "onBlur",
@@ -35,6 +40,25 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
     keyof ProfileFormData | null
   >(null);
 
+  const avatar = watch("avatar");
+  const previousAvatar = profile.avatar;
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    if (result.canceled) return;
+    const imageUri = result.assets[0].uri;
+    const fileName = `avatar-${Date.now()}.jpg`;
+    const avatarFile = new File(Paths.document, fileName);
+    const sourceFile = new File(imageUri);
+    await sourceFile.copy(avatarFile);
+    setValue("avatar", avatarFile.uri);
+  };
+
   return (
     <View style={styles.profileForm}>
       <Text style={styles.title}>
@@ -42,13 +66,29 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
       </Text>
 
       <View style={styles.formContainer}>
-        <View style={styles.avatarContainer}>
-          <Image
-            source={require("../../../assets/images/profile/default-avatar.png")}
-            style={styles.avatar}
-            resizeMode="cover"
-          />
+        <View style={styles.avatarWrapper}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={
+                avatar
+                  ? { uri: avatar }
+                  : require("../../../assets/images/profile/default-avatar.png")
+              }
+              style={styles.avatar}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.avatarContext}>
+            <Text style={styles.avatarContextDescription}>
+              Add a photo to personalize your profile
+            </Text>
+            <Pressable style={styles.avatarButton} onPress={pickImage}>
+              <Ionicons name="camera-outline" size={20} color="#102A43" />
+              <Text style={styles.avatarButtonText}>Select a photo</Text>
+            </Pressable>
+          </View>
         </View>
+
         <Controller
           control={control}
           name="firstName"
@@ -222,16 +262,50 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
   },
+  avatarWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    marginBottom: 20,
+  },
   avatarContainer: {
     width: 112,
     height: 112,
     borderRadius: 56,
     overflow: "hidden",
     alignSelf: "center",
+    position: "relative",
   },
   avatar: {
     width: "100%",
     height: "100%",
+  },
+  avatarContext: {
+    flex: 1,
+    gap: 14,
+    alignItems: "flex-start",
+  },
+  avatarContextDescription: {
+    fontFamily: "LoraRegular",
+    fontSize: 15,
+    lineHeight: 24,
+    color: "#102A43",
+  },
+  avatarButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    color: "#102A43",
+    borderColor: "#102A43",
+    borderWidth: 1,
+    flexDirection: "row",
+    gap: 8,
+  },
+  avatarButtonText: {
+    color: "#102A43",
+    fontSize: 15,
+    fontFamily: "LoraMedium",
   },
   input: {
     fontFamily: "LoraRegular",

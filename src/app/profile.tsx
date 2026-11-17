@@ -40,24 +40,16 @@ export default function Profile() {
           Welcome aboard, {profile.firstName}!
         </Text>
 
-        <View style={styles.avatarWrapper}>
-          <View style={styles.avatarContainer}>
-            <Image
-              source={
-                profile.avatar
-                  ? { uri: profile.avatar }
-                  : require("../../assets/images/profile/default-avatar.png")
-              }
-              style={styles.avatar}
-              resizeMode="cover"
-            />
-          </View>
-          <View style={styles.avatarContext}>
-            <Text style={styles.avatarContextTitle}>Your profile photo</Text>
-            <Pressable style={styles.avatarButton}>
-              <Text style={styles.avatarButtonText}>Change photo</Text>
-            </Pressable>
-          </View>
+        <View style={styles.avatarContainer}>
+          <Image
+            source={
+              profile.avatar
+                ? { uri: profile.avatar }
+                : require("../../assets/images/profile/default-avatar.png")
+            }
+            style={styles.avatar}
+            resizeMode="cover"
+          />
         </View>
 
         <View style={styles.profileWrap}>
@@ -121,48 +113,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
   },
-  avatarWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 14,
-    marginBottom: 20,
-  },
   avatarContainer: {
-    width: 112,
-    height: 112,
-    borderRadius: 56,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
     borderWidth: 2,
-    borderColor: "#D6A85C",
+    borderColor: "#102A43",
     overflow: "hidden",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 20,
   },
   avatar: {
     width: "100%",
     height: "100%",
-  },
-  avatarContext: {
-    flex: 1,
-    gap: 14,
-    alignItems: "flex-start",
-  },
-  avatarContextTitle: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#213445",
-    fontFamily: "LoraMedium",
-  },
-  avatarButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "#D6A85C",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-  },
-  avatarButtonText: {
-    color: "#102A43",
-    fontSize: 15,
-    fontFamily: "LoraMedium",
   },
   profileWrap: { gap: 14, alignItems: "flex-start" },
   profileContainer: {
