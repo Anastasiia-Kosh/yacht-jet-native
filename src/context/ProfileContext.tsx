@@ -22,6 +22,7 @@ const initialProfile: UserProfile = {
 type ProfileContextType = {
   profile: UserProfile;
   setProfile: React.Dispatch<React.SetStateAction<UserProfile>>;
+  isLoaded: boolean;
 };
 export const ProfileContext = createContext<ProfileContextType | null>(null);
 
@@ -69,7 +70,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   }, [profile, isLoaded]);
 
   return (
-    <ProfileContext.Provider value={{ profile, setProfile }}>
+    <ProfileContext.Provider value={{ profile, setProfile, isLoaded }}>
       {children}
     </ProfileContext.Provider>
   );

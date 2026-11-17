@@ -62,7 +62,6 @@ export default function Booking() {
           ]}
           contentContainerStyle={styles.bookingContent}
           keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
         >
           <View style={styles.featureContainer}>
             <Ionicons name="location-outline" size={18} color="#627D98" />

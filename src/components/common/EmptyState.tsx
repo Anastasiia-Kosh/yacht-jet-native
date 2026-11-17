@@ -20,29 +20,40 @@ export default function EmptyState({
 }: EmptyStateProps) {
   const insets = useSafeAreaInsets();
   return (
-    <View style={[styles.backgroundNotFound, { paddingTop: insets.top + 20 }]}>
+    <View style={styles.background}>
       <Image
-        source={require("../../../assets/images/empty.png")}
-        style={styles.logo}
-        resizeMode="contain"
+        source={require("../../../assets/images/profile/profile.webp")}
+        style={[StyleSheet.absoluteFill, { width: "100%", height: "100%" }]}
+        resizeMode="cover"
       />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
-      <Link href={link} asChild>
-        <Pressable style={styles.button}>
-          <Ionicons name={nameIcon} size={20} color="#FFFFFF" />
-          <Text style={styles.buttonText}>{button}</Text>
-        </Pressable>
-      </Link>
+      <View style={[styles.context, { paddingTop: insets.top + 20 }]}>
+        <Image
+          source={require("../../../assets/images/empty.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        <Link href={link} asChild>
+          <Pressable style={styles.button}>
+            <Ionicons name={nameIcon} size={20} color="#FFFFFF" />
+            <Text style={styles.buttonText}>{button}</Text>
+          </Pressable>
+        </Link>
+      </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  backgroundNotFound: {
+  background: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  context: {
     paddingHorizontal: 20,
     paddingTop: 24,
     flex: 1,
-    backgroundColor: "rgba(232, 240, 247, 1.00)",
     alignItems: "center",
   },
   logo: {
@@ -60,9 +71,10 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 15,
     lineHeight: 24,
-    color: "#627D98",
+    color: "#102A43",
     textAlign: "center",
     fontFamily: "LoraRegular",
+    maxWidth: 230,
   },
   button: {
     flexDirection: "row",

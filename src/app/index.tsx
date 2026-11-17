@@ -10,7 +10,7 @@ export default function Index() {
       <Image
         source={require("../../assets/images/hero1.webp")}
         style={[StyleSheet.absoluteFill, { width: "100%", height: "100%" }]}
-        resizeMode="contain"
+        resizeMode="cover"
       />
       <View
         style={[
@@ -21,13 +21,16 @@ export default function Index() {
         <Image
           source={require("../../assets/images/logo2.png")}
           style={styles.logo}
-          resizeMode="cover"
+          resizeMode="contain"
         />
         <Text style={styles.title}>Your next sea adventure starts here</Text>
         <Text style={styles.subtitle}>
           Discover unforgettable sailing trips, explore beautiful destinations
           and find the perfect yacht for your journey
         </Text>
+        <Link href="/profile/edit">
+          <Text>Open Profile Form</Text>
+        </Link>
         <Link href="/trips" asChild>
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Explore Trips</Text>
