@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
   },
   context: {
     paddingHorizontal: 20,
-    paddingTop: 24,
     flex: 1,
     alignItems: "center",
+    width: "100%",
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: 280,
+    height: 280,
     marginBottom: 18,
   },
   title: {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     backgroundColor: "rgba(255, 255, 255, 0.7)",
     paddingVertical: 12,
-    paddingHorizontal: 46,
+    paddingHorizontal: 24,
     borderRadius: 8,
   },
   description: {
@@ -78,10 +78,9 @@ const styles = StyleSheet.create({
     color: "#102A43",
     textAlign: "center",
     fontFamily: "LoraRegular",
-    maxWidth: 230,
     backgroundColor: "rgba(255, 255, 255, 0.7)",
-    paddingVertical: 12,
-    paddingHorizontal: 46,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
     borderRadius: 8,
   },
   button: {

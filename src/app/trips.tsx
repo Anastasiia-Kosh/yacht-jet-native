@@ -1,4 +1,5 @@
 import FavoriteButton from "@/components/trip/FavoriteButton";
+import { useProfile } from "@/context/ProfileContext";
 import { trips } from "@/data/trips";
 import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,6 +17,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Trips() {
   const insets = useSafeAreaInsets();
+  const user = useProfile();
 
   const tripItem: ListRenderItem<TripItem> = ({ item }) => (
     <View style={styles.item}>
@@ -48,7 +50,7 @@ export default function Trips() {
           </View>
         </Pressable>
       </Link>
-      <FavoriteButton tripId={item.id} style={styles.favoriteButton}/>
+      <FavoriteButton tripId={item.id} style={styles.favoriteButton} />
     </View>
   );
   return (
@@ -65,25 +67,20 @@ export default function Trips() {
         ]}
         ListHeaderComponent={
           <View>
+            <Pressable style={styles.buttonMenu}>
+              <Ionicons name="menu-outline" size={30} color="#FFFFFF" />
+            </Pressable>
             <Text style={styles.title}>Explore sea trips</Text>
-
             <View style={styles.description}>
               <Text style={styles.paragraph}>
                 Explore our offers below and find the trip that perfectly
                 matches your preferences.
               </Text>
-
               <Text style={styles.paragraph}>
                 Whether you're dreaming of a relaxing getaway or an exciting
                 sailing adventure, our experienced team is here to make your
                 journey smooth, comfortable, and unforgettable.
               </Text>
-
-              <Text style={styles.paragraph}>
-                Our yachts combine elegant design, modern comfort, and
-                functionality to make every moment at sea special.
-              </Text>
-
               <Text style={styles.paragraph2}>
                 Choose your destination, book your trip, and get ready for an
                 unforgettable adventure!
@@ -112,7 +109,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#ECF8FF",
+    backgroundColor: "#ecf8ff",
+  },
+  buttonMenu: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+    elevation: 3,
+    backgroundColor: "#102A43",
+    position: "absolute",
+    top: 0,
+    right: 20,
+    boxShadow: "2px 3px 8px 0px rgba(16, 42, 67, 0.6)",
   },
   buttonBack: {
     flexDirection: "row",

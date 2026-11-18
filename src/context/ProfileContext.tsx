@@ -25,6 +25,7 @@ type ProfileContextType = {
   setProfile: React.Dispatch<React.SetStateAction<UserProfile>>;
   isLoaded: boolean;
   saveProfile: (data: UserProfile) => Promise<void>;
+  deleteProfile: () => Promise<void>;
 };
 export const ProfileContext = createContext<ProfileContextType | null>(null);
 
@@ -88,9 +89,35 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const deleteProfile = async () => {
+    try {
+      const avatarUri = profile.avatar;
+      await AsyncStorage.removeItem(STORAGE_KEY);
+      setProfile(initialProfile);
+
+      if (avatarUri) {
+        try {
+          const avatarFile = new File(avatarUri);
+
+          if (
+            avatarFile.uri.startsWith(Paths.document.uri) &&
+            avatarFile.exists
+          ) {
+            await avatarFile.delete();
+          }
+        } catch (error) {
+          console.warn("Failed to delete avatar:", error);
+        }
+      }
+    } catch (error) {
+      console.warn("Failed to delete profile:", error);
+      throw error;
+    }
+  };
+
   return (
     <ProfileContext.Provider
-      value={{ profile, setProfile, isLoaded, saveProfile }}
+      value={{ profile, setProfile, isLoaded, saveProfile, deleteProfile }}
     >
       {children}
     </ProfileContext.Provider>

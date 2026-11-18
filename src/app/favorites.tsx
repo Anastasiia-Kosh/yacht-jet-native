@@ -96,7 +96,7 @@ export default function Favorites() {
         ]}
         ListHeaderComponent={
           <View>
-            <Text style={styles.title}>Favorite trips</Text>
+            <Text style={styles.title}>My favorite trips</Text>
             <Text style={styles.description}>
               Your saved sea adventures, all in one place.
             </Text>

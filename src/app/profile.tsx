@@ -9,8 +9,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Profile() {
   const insets = useSafeAreaInsets();
-
-  const { profile, isLoaded } = useProfile();
+  const { profile, isLoaded, deleteProfile } = useProfile();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const hasProfile = profile.firstName.trim().length > 0;
   if (!isLoaded) {
@@ -30,21 +30,20 @@ export default function Profile() {
     );
   }
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const handleDeleteModal = () => {
+  const handleOpenModal = () => {
     setIsModalVisible(true);
   };
   const handleCloseModal = () => {
     setIsModalVisible(false);
-    router.replace({
-      pathname: "/profile",
-    });
   };
-  const handleDelete = () => {
-    setIsModalVisible(false);
-    router.replace({
-      pathname: "/",
-    });
+  const handleDelete = async () => {
+    try {
+      await deleteProfile();
+      setIsModalVisible(false);
+      router.replace("/");
+    } catch (error) {
+      console.warn("Failed to delete profile:", error);
+    }
   };
 
   return (
@@ -64,6 +63,7 @@ export default function Profile() {
         <Text style={styles.title}>My Profile</Text>
         <Text style={styles.description}>Welcome aboard,</Text>
         <Text style={styles.description}>{profile.firstName}!</Text>
+
         <View style={styles.avatarContainer}>
           <Image
             source={
@@ -104,7 +104,7 @@ export default function Profile() {
             </Pressable>
           </Link>
 
-          <Pressable style={styles.buttonDelete} onPress={handleDeleteModal}>
+          <Pressable style={styles.buttonDelete} onPress={handleOpenModal}>
             <Text style={styles.buttonDeleteText}>Delete</Text>
           </Pressable>
         </View>
