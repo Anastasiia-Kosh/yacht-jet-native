@@ -64,7 +64,6 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
       <Text style={styles.title}>
         {hasProfile ? "Edit your profile" : "Create your profile"}
       </Text>
-
       <View style={styles.formContainer}>
         <View style={styles.avatarWrapper}>
           <View style={styles.avatarContainer}>
@@ -78,15 +77,10 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
               resizeMode="cover"
             />
           </View>
-          <View style={styles.avatarContext}>
-            <Text style={styles.avatarContextDescription}>
-              Add a photo to personalize your profile
-            </Text>
-            <Pressable style={styles.avatarButton} onPress={pickImage}>
-              <Ionicons name="camera-outline" size={20} color="#102A43" />
-              <Text style={styles.avatarButtonText}>Select a photo</Text>
-            </Pressable>
-          </View>
+          <Pressable style={styles.avatarButton} onPress={pickImage}>
+            <Ionicons name="camera-outline" size={20} color="#102A43" />
+            <Text style={styles.avatarButtonText}>Select a photo</Text>
+          </Pressable>
         </View>
 
         <Controller
@@ -254,7 +248,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "LoraSemiBoldItalic",
     fontSize: 28,
-    color: "#102A43",
+    color: "#FFFFFF",
     marginBottom: 18,
   },
   formContainer: {
@@ -272,6 +266,8 @@ const styles = StyleSheet.create({
     width: 112,
     height: 112,
     borderRadius: 56,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
     overflow: "hidden",
     alignSelf: "center",
     position: "relative",
@@ -279,17 +275,6 @@ const styles = StyleSheet.create({
   avatar: {
     width: "100%",
     height: "100%",
-  },
-  avatarContext: {
-    flex: 1,
-    gap: 14,
-    alignItems: "flex-start",
-  },
-  avatarContextDescription: {
-    fontFamily: "LoraRegular",
-    fontSize: 15,
-    lineHeight: 24,
-    color: "#102A43",
   },
   avatarButton: {
     paddingVertical: 8,
@@ -301,6 +286,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     gap: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
   avatarButtonText: {
     color: "#102A43",
@@ -309,7 +295,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: "LoraRegular",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingVertical: 12,

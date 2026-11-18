@@ -1,12 +1,15 @@
 import EmptyState from "@/components/common/EmptyState";
+import ProfileDeleteModal from "@/components/profile/ProfileDeleteModal";
 import { useProfile } from "@/context/ProfileContext";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Profile() {
   const insets = useSafeAreaInsets();
+
   const { profile, isLoaded } = useProfile();
 
   const hasProfile = profile.firstName.trim().length > 0;
@@ -27,19 +30,40 @@ export default function Profile() {
     );
   }
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const handleDeleteModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    router.replace({
+      pathname: "/profile",
+    });
+  };
+  const handleDelete = () => {
+    setIsModalVisible(false);
+    router.replace({
+      pathname: "/",
+    });
+  };
+
   return (
     <View style={styles.background}>
       <Image
         source={require("../../assets/images/profile/profile.webp")}
-        style={[StyleSheet.absoluteFill, { width: "100%", height: "100%" }]}
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            width: "100%",
+            height: "100%",
+          },
+        ]}
         resizeMode="cover"
       />
       <View style={[styles.profile, { paddingTop: insets.top + 20 }]}>
         <Text style={styles.title}>My Profile</Text>
-        <Text style={styles.description}>
-          Welcome aboard, {profile.firstName}!
-        </Text>
-
+        <Text style={styles.description}>Welcome aboard,</Text>
+        <Text style={styles.description}>{profile.firstName}!</Text>
         <View style={styles.avatarContainer}>
           <Image
             source={
@@ -54,31 +78,44 @@ export default function Profile() {
 
         <View style={styles.profileWrap}>
           <View style={styles.profileContainer}>
-            <Ionicons name="person" size={20} color="#627D98" />
+            <Ionicons name="person" size={20} color="#102A43" />
             <Text style={styles.profileData}>
               {profile.firstName} {profile.lastName}
             </Text>
           </View>
           <View style={styles.profileContainer}>
-            <Ionicons name="flag" size={20} color="#627D98" />
+            <Ionicons name="flag" size={20} color="#102A43" />
             <Text style={styles.profileData}>{profile.country}</Text>
           </View>
           <View style={styles.profileContainer}>
-            <Ionicons name="mail" size={20} color="#627D98" />
+            <Ionicons name="mail" size={20} color="#102A43" />
             <Text style={styles.profileData}>{profile.email}</Text>
           </View>
           <View style={styles.profileContainer}>
-            <Ionicons name="call" size={20} color="#627D98" />
+            <Ionicons name="call" size={20} color="#102A43" />
             <Text style={styles.profileData}>{profile.phone}</Text>
           </View>
         </View>
 
-        <Link href="/profile/edit" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Edit profile</Text>
+        <View style={styles.buttonContainer}>
+          <Link href="/profile/edit" asChild>
+            <Pressable style={styles.button}>
+              <Text style={styles.buttonText}>Edit profile</Text>
+            </Pressable>
+          </Link>
+
+          <Pressable style={styles.buttonDelete} onPress={handleDeleteModal}>
+            <Text style={styles.buttonDeleteText}>Delete</Text>
           </Pressable>
-        </Link>
+        </View>
       </View>
+      <ProfileDeleteModal
+        visible={isModalVisible}
+        firstName={profile.firstName}
+        lastName={profile.lastName}
+        onClose={handleCloseModal}
+        onDelete={handleDelete}
+      />
     </View>
   );
 }
@@ -98,15 +135,14 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "LoraSemiBoldItalic",
     fontSize: 28,
-    color: "#102A43",
+    color: "#FFFFFF",
     marginBottom: 18,
   },
   description: {
     fontSize: 16,
-    lineHeight: 24,
-    color: "#213445",
+    color: "#FFFFFF",
     fontFamily: "LoraItalic",
-    marginBottom: 24,
+    marginBottom: 8,
   },
   profileHeader: {
     flexDirection: "row",
@@ -118,11 +154,12 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     borderWidth: 2,
-    borderColor: "#102A43",
+    borderColor: "#FFFFFF",
     overflow: "hidden",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: 20,
+    marginTop: 10,
   },
   avatar: {
     width: "100%",
@@ -133,28 +170,48 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderRadius: 10,
     padding: 14,
     width: "100%",
   },
   profileData: {
     fontFamily: "LoraRegular",
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 24,
     color: "#102A43",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 24,
+    gap: 10,
+    width: "100%",
   },
   button: {
     backgroundColor: "#102A43",
     paddingVertical: 12,
-    paddingHorizontal: 40,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 24,
+    width: "70%",
+    justifyContent: "center",
   },
   buttonText: {
     fontFamily: "LoraMedium",
     color: "#FFFFFF",
     fontSize: 20,
+  },
+  buttonDelete: {
+    backgroundColor: "#431010",
+    paddingVertical: 12,
+    width: "30%",
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonDeleteText: {
+    fontFamily: "LoraRegular",
+    color: "#FFFFFF",
+    fontSize: 15,
   },
 });

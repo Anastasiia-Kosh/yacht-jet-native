@@ -15,11 +15,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function ProfileEdit() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { setProfile, isLoaded } = useProfile();
+  const { saveProfile, isLoaded } = useProfile();
 
-  const handleProfileSubmit = (data: ProfileFormData) => {
-    setProfile(data);
-    router.replace("/profile");
+  const handleProfileSubmit = async (data: ProfileFormData) => {
+    try {
+      await saveProfile(data);
+      router.replace("/profile");
+    } catch (error) {
+      console.warn("Failed to update profile:", error);
+    }
   };
 
   if (!isLoaded) {

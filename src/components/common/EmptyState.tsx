@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
     fontFamily: "LoraSemiBoldItalic",
     color: "#102A43",
     marginBottom: 14,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    paddingVertical: 12,
+    paddingHorizontal: 46,
+    borderRadius: 8,
   },
   description: {
     fontSize: 15,
@@ -75,6 +79,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "LoraRegular",
     maxWidth: 230,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    paddingVertical: 12,
+    paddingHorizontal: 46,
+    borderRadius: 8,
   },
   button: {
     flexDirection: "row",
