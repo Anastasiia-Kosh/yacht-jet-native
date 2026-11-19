@@ -59,7 +59,12 @@ export default function Profile() {
         ]}
         resizeMode="cover"
       />
-      <View style={[styles.profile, { paddingTop: insets.top + 20 }]}>
+      <View
+        style={[
+          styles.profile,
+          { paddingTop: insets.top + 20, paddingBottom: insets.bottom + 24 },
+        ]}
+      >
         <Text style={styles.title}>My Profile</Text>
         <Text style={styles.description}>Welcome aboard,</Text>
         <Text style={styles.description}>{profile.firstName}!</Text>
@@ -108,6 +113,14 @@ export default function Profile() {
             <Text style={styles.buttonDeleteText}>Delete</Text>
           </Pressable>
         </View>
+        <Pressable onPress={() => router.back()} style={styles.buttonBack}>
+          <Ionicons
+            name="arrow-back-circle-outline"
+            size={20}
+            color="#102A43"
+          />
+          <Text style={styles.buttonBackText}>Go back</Text>
+        </Pressable>
       </View>
       <ProfileDeleteModal
         visible={isModalVisible}
@@ -213,5 +226,21 @@ const styles = StyleSheet.create({
     fontFamily: "LoraRegular",
     color: "#FFFFFF",
     fontSize: 15,
+  },
+  buttonBack: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 30,
+    marginTop: "auto",
+    marginRight: "auto",
+  },
+  buttonBackText: {
+    color: "#102A43",
+    fontSize: 15,
+    fontFamily: "LoraRegular",
   },
 });

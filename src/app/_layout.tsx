@@ -11,6 +11,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
@@ -35,12 +36,19 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <ProfileProvider>
-        <FavoritesProvider>
-          <Stack screenOptions={{ headerShown: false }} />
-        </FavoritesProvider>
-      </ProfileProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ProfileProvider>
+          <FavoritesProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                animation: "fade_from_bottom",
+              }}
+            />
+          </FavoritesProvider>
+        </ProfileProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
