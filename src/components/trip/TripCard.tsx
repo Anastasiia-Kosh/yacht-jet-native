@@ -1,20 +1,31 @@
 import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { useEffect } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { GestureDetector, usePanGesture } from "react-native-gesture-handler";
 import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 
 type TripCardProps = {
   item: TripItem;
   position: "back" | "middle" | "current";
   width: number;
+  onSwipeComplete: () => void;
 };
 
-export default function TripCard({ item, position, width }: TripCardProps) {
+export default function TripCard({
+  item,
+  position,
+  width,
+  onSwipeComplete,
+}: TripCardProps) {
   const positionStyle =
     position === "back"
       ? styles.backCard
@@ -23,25 +34,48 @@ export default function TripCard({ item, position, width }: TripCardProps) {
         : styles.currentCard;
 
   const translateY = useSharedValue(0);
+  const scale = useSharedValue(
+    position === "current" ? 1 : position === "middle" ? 0.91 : 0.82,
+  );
+
+  useEffect(() => {
+    if (position === "back") {
+      scale.value = 0.82;
+      return;
+    }
+    if (position === "current") {
+      scale.value = withDelay(100, withSpring(1));
+    } else {
+      scale.value = withSpring(0.91);
+    }
+  }, [position]);
+
   const panGesture = usePanGesture({
     onUpdate: (event) => {
       translateY.value = Math.max(0, event.translationY);
+      scale.value = Math.max(0.82, 1 - event.translationY / 2000);
+    },
+    onFinalize: () => {
+      if (translateY.value < 150) {
+        translateY.value = withSpring(0);
+        scale.value = withSpring(1);
+      } else {
+        translateY.value = withTiming(700, { duration: 400 }, (finished) => {
+          finished === true && scheduleOnRN(onSwipeComplete);
+        });
+        scale.value = withTiming(0.82, { duration: 400 });
+      }
     },
   });
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
+    transform: [{ translateY: translateY.value }, { scale: scale.value }],
   }));
   return (
     <GestureDetector gesture={panGesture}>
       <Animated.View
         pointerEvents={position === "current" ? "auto" : "none"}
-        style={[
-          styles.card,
-          { width },
-          positionStyle,
-          position === "current" && animatedStyle,
-        ]}
+        style={[styles.card, { width }, positionStyle, animatedStyle]}
       >
         <Image
           source={item.img}
@@ -93,14 +127,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
     elevation: 1,
     top: -85,
-    transform: [{ scale: 0.82 }],
   },
 
   middleCard: {
     zIndex: 2,
     elevation: 2,
     top: -45,
-    transform: [{ scale: 0.91 }],
   },
 
   currentCard: {

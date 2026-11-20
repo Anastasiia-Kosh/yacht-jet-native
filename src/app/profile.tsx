@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#102A43",
-    paddingVertical: 12,
+    paddingVertical: 8,
     borderRadius: 8,
     alignItems: "center",
     width: "70%",
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
   buttonDelete: {
     backgroundColor: "#431010",
-    paddingVertical: 12,
+    paddingVertical: 8,
     width: "30%",
     borderRadius: 8,
     alignItems: "center",
