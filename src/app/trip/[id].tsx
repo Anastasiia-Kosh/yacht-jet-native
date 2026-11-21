@@ -1,3 +1,4 @@
+import ScrollSection from "@/components/common/ScrollSection";
 import BookingButton from "@/components/trip/BookingButton";
 import TripAbout from "@/components/trip/TripAbout";
 import TripAction from "@/components/trip/TripAction";
@@ -7,7 +8,11 @@ import TripHero from "@/components/trip/TripHero";
 import TripReviews from "@/components/trip/TripReviews";
 import TripRoute from "@/components/trip/TripRoute";
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EmptyState from "../../components/common/EmptyState";
 import { trips } from "../../data/trips";
@@ -16,6 +21,14 @@ export default function Trip() {
   const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
   const trip = trips.find((trip) => trip.id === id);
+
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollY.value = event.contentOffset.y;
+    },
+  });
 
   if (!trip) {
     return (
@@ -29,7 +42,8 @@ export default function Trip() {
   }
 
   return (
-    <ScrollView
+    <Animated.ScrollView
+      onScroll={scrollHandler}
       style={styles.background}
       contentContainerStyle={{
         paddingBottom: insets.bottom + 24,
@@ -39,14 +53,24 @@ export default function Trip() {
     >
       <TripHero image={trip.img} tripId={trip.id} />
       <TripDetails trip={trip} />
+
       <BookingButton tripId={trip.id} />
-      <TripAbout description={trip.description} image={trip.imgDescr} />
-      <TripRoute itinerary={trip.itinerary} />
-      <TripGallery trip={trip} />
-      <TripReviews trip={trip} />
+
+      <ScrollSection scrollY={scrollY} direction="left">
+        <TripAbout description={trip.description} image={trip.imgDescr} />
+      </ScrollSection>
+      {/* <ScrollSection scrollY={scrollY} direction="right">
+        <TripRoute itinerary={trip.itinerary} />
+      </ScrollSection> */}
+      <ScrollSection scrollY={scrollY} direction="left">
+        <TripGallery trip={trip} />
+      </ScrollSection>
+      <ScrollSection scrollY={scrollY} direction="right">
+        <TripReviews trip={trip} />
+      </ScrollSection>
       <TripAction />
       <BookingButton tripId={trip.id} />
-    </ScrollView>
+    </Animated.ScrollView>
   );
 }
 

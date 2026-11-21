@@ -3,13 +3,11 @@ import { trips } from "@/data/trips";
 import { useState } from "react";
 import { useWindowDimensions, View } from "react-native";
 import Pagination from "./Pagination";
-import { useSharedValue } from "react-native-reanimated";
 
 export default function TripStack() {
   const { width } = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState(0);
-  // const isTransitioning = useSharedValue(false);
-  
+
   const middleIndex = (activeIndex + 1) % trips.length;
   const backIndex = (activeIndex + 2) % trips.length;
 
@@ -20,9 +18,27 @@ export default function TripStack() {
   return (
     <View style={{ flex: 1, width: "100%" }}>
       <View style={{ flex: 1, position: "relative" }}>
-        <TripCard item={trips[backIndex]} position="back" width={width} onSwipeComplete={indexChange} key={trips[backIndex].id} />
-        <TripCard item={trips[middleIndex]} position="middle" width={width} onSwipeComplete={indexChange} key={trips[middleIndex].id}/>
-        <TripCard item={trips[activeIndex]} position="current" width={width} onSwipeComplete={indexChange} key={trips[activeIndex].id}/>
+        <TripCard
+          item={trips[backIndex]}
+          position="back"
+          width={width}
+          onSwipeComplete={indexChange}
+          key={trips[backIndex].id}
+        />
+        <TripCard
+          item={trips[middleIndex]}
+          position="middle"
+          width={width}
+          onSwipeComplete={indexChange}
+          key={trips[middleIndex].id}
+        />
+        <TripCard
+          item={trips[activeIndex]}
+          position="current"
+          width={width}
+          onSwipeComplete={indexChange}
+          key={trips[activeIndex].id}
+        />
       </View>
       <Pagination total={trips.length} activeIndex={activeIndex} />
     </View>

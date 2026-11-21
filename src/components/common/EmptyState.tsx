@@ -33,7 +33,7 @@ export default function EmptyState({
           resizeMode="contain"
         />
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
+        {description && <Text style={styles.description}>{description}</Text>}
         <Link href={link} asChild>
           <Pressable style={styles.button}>
             <Ionicons name={nameIcon} size={20} color="#FFFFFF" />
