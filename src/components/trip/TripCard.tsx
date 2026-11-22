@@ -17,6 +17,7 @@ type TripCardProps = {
   item: TripItem;
   position: "back" | "middle" | "current";
   width: number;
+  height: number;
   onSwipeComplete: () => void;
 };
 
@@ -24,6 +25,7 @@ export default function TripCard({
   item,
   position,
   width,
+  height,
   onSwipeComplete,
 }: TripCardProps) {
   const positionStyle =
@@ -75,7 +77,7 @@ export default function TripCard({
     <GestureDetector gesture={panGesture}>
       <Animated.View
         pointerEvents={position === "current" ? "auto" : "none"}
-        style={[styles.card, { width }, positionStyle, animatedStyle]}
+        style={[styles.card, { width, height }, positionStyle, animatedStyle]}
       >
         <Image
           source={item.img}
@@ -113,7 +115,6 @@ export default function TripCard({
 
 const styles = StyleSheet.create({
   card: {
-    height: 600,
     position: "absolute",
     top: 0,
     left: 0,
@@ -126,13 +127,13 @@ const styles = StyleSheet.create({
   backCard: {
     zIndex: 1,
     elevation: 1,
-    top: -85,
+    top: "-12.5%",
   },
 
   middleCard: {
     zIndex: 2,
     elevation: 2,
-    top: -45,
+    top: "-6.5%",
   },
 
   currentCard: {

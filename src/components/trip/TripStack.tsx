@@ -7,6 +7,7 @@ import Pagination from "./Pagination";
 export default function TripStack() {
   const { width } = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [cardsHeight, setCardsHeight] = useState(0);
 
   const middleIndex = (activeIndex + 1) % trips.length;
   const backIndex = (activeIndex + 2) % trips.length;
@@ -17,11 +18,17 @@ export default function TripStack() {
 
   return (
     <View style={{ flex: 1, width: "100%" }}>
-      <View style={{ flex: 1, position: "relative" }}>
+      <View
+        style={{ flex: 1, position: "relative" }}
+        onLayout={(event) => {
+          setCardsHeight(event.nativeEvent.layout.height);
+        }}
+      >
         <TripCard
           item={trips[backIndex]}
           position="back"
           width={width}
+          height={cardsHeight}
           onSwipeComplete={indexChange}
           key={trips[backIndex].id}
         />
@@ -29,6 +36,7 @@ export default function TripStack() {
           item={trips[middleIndex]}
           position="middle"
           width={width}
+          height={cardsHeight}
           onSwipeComplete={indexChange}
           key={trips[middleIndex].id}
         />
@@ -36,6 +44,7 @@ export default function TripStack() {
           item={trips[activeIndex]}
           position="current"
           width={width}
+          height={cardsHeight}
           onSwipeComplete={indexChange}
           key={trips[activeIndex].id}
         />

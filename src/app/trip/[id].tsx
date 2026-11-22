@@ -1,12 +1,11 @@
 import ScrollSection from "@/components/common/ScrollSection";
-import BookingButton from "@/components/trip/BookingButton";
+import BookingButton from "@/components/button/BookingButton";
 import TripAbout from "@/components/trip/TripAbout";
 import TripAction from "@/components/trip/TripAction";
 import TripDetails from "@/components/trip/TripDetails";
 import TripGallery from "@/components/trip/TripGallery";
 import TripHero from "@/components/trip/TripHero";
 import TripReviews from "@/components/trip/TripReviews";
-import TripRoute from "@/components/trip/TripRoute";
 import { useLocalSearchParams } from "expo-router";
 import { StyleSheet } from "react-native";
 import Animated, {
@@ -53,9 +52,7 @@ export default function Trip() {
     >
       <TripHero image={trip.img} tripId={trip.id} />
       <TripDetails trip={trip} />
-
       <BookingButton tripId={trip.id} />
-
       <ScrollSection scrollY={scrollY} direction="left">
         <TripAbout description={trip.description} image={trip.imgDescr} />
       </ScrollSection>

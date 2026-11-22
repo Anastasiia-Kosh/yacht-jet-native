@@ -1,8 +1,8 @@
 import type { TripItem } from "@/types/trip";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import FavoriteButton from "./FavoriteButton";
+import FavoriteButton from "../button/FavoriteButton";
 
 export default function TripHero({
   image,
@@ -14,11 +14,16 @@ export default function TripHero({
   return (
     <View style={styles.imageContainer}>
       <Image source={image} style={styles.image} resizeMode="cover" />
-
-      <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-        <Ionicons name="arrow-back-circle-outline" size={20} color="#102A43" />
-        <Text style={styles.buttonBackText}>Go back</Text>
-      </Pressable>
+      <Link href={"/trips"} asChild>
+        <Pressable style={styles.buttonBack}>
+          <Ionicons
+            name="arrow-back-circle-outline"
+            size={20}
+            color="#102A43"
+          />
+          <Text style={styles.buttonBackText}>All trips</Text>
+        </Pressable>
+      </Link>
       <FavoriteButton tripId={tripId} style={styles.favoriteButton} />
     </View>
   );

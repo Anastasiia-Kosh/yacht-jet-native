@@ -70,7 +70,7 @@ export default function Trips() {
     <View
       style={[
         styles.background,
-        { paddingBottom: insets.bottom + 24, paddingTop: insets.top + 20 },
+        { paddingBottom: insets.bottom + 10, paddingTop: insets.top + 20 },
       ]}
     >
       <View style={styles.listHeader}>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ecf8ff",
   },
   listHeader: {
-    marginBottom: 50,
+    marginBottom: 35,
     paddingHorizontal: 20,
   },
   buttonMenu: {

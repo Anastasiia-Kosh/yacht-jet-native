@@ -1,4 +1,4 @@
-import FavoriteButton from "@/components/trip/FavoriteButton";
+import FavoriteButton from "@/components/button/FavoriteButton";
 import { useFavorites } from "@/context/FavoritesContext";
 import { trips } from "@/data/trips";
 import type { TripItem } from "@/types/trip";
@@ -38,44 +38,46 @@ export default function Favorites() {
   const tripItem: ListRenderItem<TripItem> = ({ item }) => (
     <View style={styles.item}>
       <Image source={item.img} style={styles.itemImage} resizeMode="cover" />
-      <View style={styles.context}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
-        <FavoriteButton tripId={item.id} style={styles.favoriteButton} />
+      <View style={styles.wrapper}>
+        <View style={styles.context}>
+          <Text style={styles.itemTitle}>{item.title}</Text>
+          <FavoriteButton tripId={item.id} style={styles.favoriteButton} />
+        </View>
+        <View style={styles.featureContainer}>
+          <Ionicons name="location-outline" size={18} color="#627D98" />
+          <Text style={styles.feature}>{item.location}</Text>
+        </View>
+        <View style={styles.featureContainer}>
+          <Ionicons name="boat-outline" size={18} color="#627D98" />
+          <Text style={styles.feature}>{item.yachtType}</Text>
+        </View>
+        <View style={styles.featureContainer}>
+          <Ionicons name="calendar-outline" size={18} color="#486581" />
+          <Text style={styles.feature}>{item.duration}</Text>
+        </View>
+        <View style={styles.featureContainer}>
+          <Ionicons name="cash-outline" size={18} color="#486581" />
+          <Text style={styles.feature}>
+            ${item.price.toLocaleString("en-US")}
+          </Text>
+        </View>
+        <Link
+          href={{
+            pathname: "/trip/[id]",
+            params: { id: item.id },
+          }}
+          asChild
+        >
+          <Pressable style={styles.buttonViewTrip}>
+            <Text style={styles.buttonViewTripText}>View trip</Text>
+            <Ionicons
+              name="arrow-forward-circle-outline"
+              size={20}
+              color="#FFFFFF"
+            />
+          </Pressable>
+        </Link>
       </View>
-      <View style={styles.featureContainer}>
-        <Ionicons name="location-outline" size={18} color="#627D98" />
-        <Text style={styles.feature}>{item.location}</Text>
-      </View>
-      <View style={styles.featureContainer}>
-        <Ionicons name="boat-outline" size={18} color="#627D98" />
-        <Text style={styles.feature}>{item.yachtType}</Text>
-      </View>
-      <View style={styles.featureContainer}>
-        <Ionicons name="calendar-outline" size={18} color="#486581" />
-        <Text style={styles.feature}>{item.duration}</Text>
-      </View>
-      <View style={styles.featureContainer}>
-        <Ionicons name="cash-outline" size={18} color="#486581" />
-        <Text style={styles.feature}>
-          ${item.price.toLocaleString("en-US")} / per trip
-        </Text>
-      </View>
-      <Link
-        href={{
-          pathname: "/trip/[id]",
-          params: { id: item.id },
-        }}
-        asChild
-      >
-        <Pressable style={styles.buttonViewTrip}>
-          <Text style={styles.buttonViewTripText}>View trip</Text>
-          <Ionicons
-            name="arrow-forward-circle-outline"
-            size={20}
-            color="#FFFFFF"
-          />
-        </Pressable>
-      </Link>
     </View>
   );
 
@@ -141,12 +143,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   item: {
-    padding: 20,
+    padding: 5,
     borderRadius: 10,
     backgroundColor: "#FFFFFF",
-    gap: 10,
+    gap: 5,
     position: "relative",
   },
+  wrapper: { padding: 10 },
   itemImage: {
     width: "100%",
     height: 240,
@@ -183,8 +186,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
     position: "absolute",
-    right: 20,
-    bottom: 20,
+    right: 10,
+    bottom: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
