@@ -1,4 +1,3 @@
-
 import type { ItineraryDay, TripItem } from "@/types/trip";
 import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
 
@@ -44,7 +43,7 @@ export default function RouteDays({
 
 const styles = StyleSheet.create({
   daysContainer: {
-    gap: 10,
+    gap: 5,
     paddingVertical: 20,
   },
   dayButton: {

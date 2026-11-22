@@ -7,20 +7,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
 import {
-  SharedValue,
   useAnimatedReaction,
   useSharedValue,
-  withTiming,
+  withTiming
 } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
-import ScrollSection from "../common/ScrollSection";
 
 type TripRouteProps = {
   itinerary: TripItem["itinerary"];
-  scrollY: SharedValue<number>;
 };
 
-export default function TripRoute({ itinerary, scrollY }: TripRouteProps) {
+export default function TripRoute({ itinerary }: TripRouteProps) {
   const mapRef = useRef<MapView | null>(null);
   const [selectedDay, setSelectedDay] = useState(1);
   const [visibleCount, setVisibleCount] = useState(1);
@@ -96,9 +93,7 @@ export default function TripRoute({ itinerary, scrollY }: TripRouteProps) {
   return (
     <View style={styles.route}>
       <View style={styles.divider} />
-      <ScrollSection scrollY={scrollY} direction="right">
-        <Text style={styles.routeTitle}>Your journey, day by day</Text>
-      </ScrollSection>
+      <Text style={styles.routeTitle}>Your journey, day by day</Text>
       <Text style={styles.routeDescription}>
         Follow the journey day by day and discover all the beautiful
         destinations along the way.

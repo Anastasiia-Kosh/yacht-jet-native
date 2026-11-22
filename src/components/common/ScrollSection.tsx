@@ -23,14 +23,14 @@ export default function ScrollSection({
   const hasAnimated = useSharedValue(false);
   const isMeasured = useSharedValue(false);
 
-  const initialX = direction === "left" ? -80 : 80;
+  const initialX = direction === "left" ? -50 : 50;
 
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = hasAnimated.value
       ? 0
       : interpolate(
           scrollY.value,
-          [sectionY.value - 700, sectionY.value - 200],
+          [sectionY.value - 600, sectionY.value - 200],
           [initialX, 0],
           Extrapolation.CLAMP,
         );
