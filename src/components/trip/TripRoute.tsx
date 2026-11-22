@@ -1,26 +1,35 @@
-import { activityIcons, activityLabels } from "@/data/icons";
-import type { ItineraryDay, RouteActivity, TripItem } from "@/types/trip";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRef, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
+import buildRouteCoordinates from "@/components/map/buildRouteCoordinates";
+import RouteDayCard from "@/components/map/RouteDayCard";
+import RouteDays from "@/components/map/RouteDays";
+import RouteMap from "@/components/map/RouteMap";
+import type { ItineraryDay, TripItem } from "@/types/trip";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import MapView from "react-native-maps";
+import {
+  SharedValue,
+  useAnimatedReaction,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
+import ScrollSection from "../common/ScrollSection";
 
-export default function TripRoute({
-  itinerary,
-}: {
+type TripRouteProps = {
   itinerary: TripItem["itinerary"];
-}) {
+  scrollY: SharedValue<number>;
+};
+
+export default function TripRoute({ itinerary, scrollY }: TripRouteProps) {
   const mapRef = useRef<MapView | null>(null);
   const [selectedDay, setSelectedDay] = useState(1);
-  const currentDay = itinerary?.find((day) => day.day === selectedDay);
+  const [visibleCount, setVisibleCount] = useState(1);
+  const progress = useSharedValue(1);
 
-  const dayActivities: RouteActivity[] = [
-    ...new Set(currentDay?.points.flatMap((point) => point.activities) ?? []),
-  ];
+  const currentDay = itinerary?.find((day) => day.day === selectedDay);
 
   const handleDayChange = (day: ItineraryDay, point = day.points[0]) => {
     setSelectedDay(day.day);
-
     if (point) {
       mapRef.current?.animateToRegion(
         {
@@ -34,138 +43,84 @@ export default function TripRoute({
     }
   };
 
-  const coordinates =
-    itinerary?.flatMap((day) =>
-      day.points.map((point) => ({
-        latitude: point.latitude,
-        longitude: point.longitude,
-      })),
-    ) ?? [];
-  const startPointId = itinerary?.[0]?.points[0]?.id;
-  const lastPoint = itinerary?.at(-1)?.points.at(-1);
+  const coordinates = useMemo(
+    () =>
+      itinerary?.flatMap((day) =>
+        day.points.map((point) => ({
+          latitude: point.latitude,
+          longitude: point.longitude,
+        })),
+      ) ?? [],
+    [itinerary],
+  );
 
-  const isReturnToStart =
-    startPointId === lastPoint?.id ||
-    (itinerary?.[0]?.points[0].latitude === lastPoint?.latitude &&
-      itinerary?.[0]?.points[0].longitude === lastPoint?.longitude);
+  const routeCoordinates = useMemo(
+    () => buildRouteCoordinates(coordinates),
+    [coordinates],
+  );
+
+  const visibleCoordinates = useMemo(
+    () => routeCoordinates.slice(0, visibleCount),
+    [routeCoordinates, visibleCount],
+  );
+
+  const markerPositions = useMemo(
+    () =>
+      coordinates.map((_, index) =>
+        index === coordinates.length - 1
+          ? routeCoordinates.length - 1
+          : index * 20,
+      ),
+    [coordinates, routeCoordinates],
+  );
+
+  useEffect(() => {
+    if (routeCoordinates.length < 2) return;
+
+    setVisibleCount(1);
+    progress.value = 1;
+    progress.value = withTiming(routeCoordinates.length, {
+      duration: 5000,
+    });
+  }, [routeCoordinates]);
+
+  useAnimatedReaction(
+    () => Math.floor(progress.value),
+    (currentCount, previousCount) => {
+      if (currentCount !== previousCount) {
+        scheduleOnRN(setVisibleCount, currentCount);
+      }
+    },
+  );
+
   return (
     <View style={styles.route}>
       <View style={styles.divider} />
-      <Text style={styles.routeTitle}>Your journey, day by day</Text>
+      <ScrollSection scrollY={scrollY} direction="right">
+        <Text style={styles.routeTitle}>Your journey, day by day</Text>
+      </ScrollSection>
       <Text style={styles.routeDescription}>
         Follow the journey day by day and discover all the beautiful
         destinations along the way.
       </Text>
-      <MapView
-        ref={mapRef}
-        style={styles.map}
-        onMapReady={() => {
-          if (coordinates.length > 0) {
-            mapRef.current?.fitToCoordinates(coordinates, {
-              edgePadding: {
-                top: 40,
-                right: 35,
-                bottom: 40,
-                left: 35,
-              },
-              animated: false,
-            });
-          }
-        }}
-      >
-        {coordinates.length > 1 && (
-          <Polyline
-            coordinates={coordinates}
-            strokeColor="#102A43"
-            strokeWidth={2}
-          />
-        )}
-        {itinerary?.flatMap((day) =>
-          day.points
-            .filter((point) => !(isReturnToStart && point === lastPoint))
-            .map((point) => {
-              const isStart = point.id === startPointId;
-              const isActive = selectedDay === day.day;
-
-              return (
-                <Marker
-                  key={point.id}
-                  coordinate={{
-                    latitude: point.latitude,
-                    longitude: point.longitude,
-                  }}
-                  title={isStart ? `${point.name} — Start` : point.name}
-                  description={point.description}
-                  onPress={() => handleDayChange(day, point)}
-                  anchor={{ x: 0.5, y: 0.5 }}
-                >
-                  <View
-                    style={[
-                      styles.marker,
-                      isActive && styles.markerActive,
-                      isStart && styles.markerStart,
-                    ]}
-                  >
-                    <MaterialCommunityIcons
-                      name="sail-boat"
-                      size={isActive ? 23 : 19}
-                      color={isStart || isActive ? "#FFFFFF" : "#102A43"}
-                    />
-                  </View>
-                </Marker>
-              );
-            }),
-        )}
-      </MapView>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.daysContainer}
-      >
-        {itinerary?.map((day) => (
-          <Pressable
-            key={day.day}
-            style={[
-              styles.dayButton,
-              selectedDay === day.day && styles.activeDayButton,
-            ]}
-            onPress={() => handleDayChange(day)}
-          >
-            <Text
-              style={[
-                styles.dayButtonText,
-                selectedDay === day.day && styles.activeDayButtonText,
-              ]}
-            >
-              Day {day.day}
-            </Text>
-          </Pressable>
-        ))}
-      </ScrollView>
-      {currentDay && (
-        <View style={styles.dayCard}>
-          <Text style={styles.dayLabel}>
-            DAY {String(currentDay.day).padStart(2, "0")}
-          </Text>
-          <Text style={styles.dayTitle}>{currentDay.title}</Text>
-          <Text style={styles.dayDescription}>{currentDay.description}</Text>
-          <View style={styles.dividerActivities} />
-          <View style={styles.activitiesContainer}>
-            {dayActivities.map((activity) => (
-              <View key={activity} style={styles.activityItem}>
-                <MaterialCommunityIcons
-                  name={activityIcons[activity]}
-                  size={22}
-                  color="#6096A8"
-                />
-                <Text style={styles.activityText}>
-                  {activityLabels[activity]}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </View>
+      {itinerary && (
+        <RouteMap
+          mapRef={mapRef}
+          itinerary={itinerary}
+          coordinates={coordinates}
+          visibleCoordinates={visibleCoordinates}
+          markerPositions={markerPositions}
+          visibleCount={visibleCount}
+          selectedDay={selectedDay}
+          onMarkerPress={handleDayChange}
+        />
       )}
+      <RouteDays
+        itinerary={itinerary ?? []}
+        selectedDay={selectedDay}
+        onDayChange={handleDayChange}
+      />
+      {currentDay && <RouteDayCard currentDay={currentDay} />}
     </View>
   );
 }
@@ -191,103 +146,5 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: "#627D98",
     marginBottom: 12,
-  },
-  map: {
-    width: "100%",
-    height: 350,
-  },
-  marker: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1.5,
-    borderColor: "#83AFC0",
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 4,
-  },
-  markerActive: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: "#102A43",
-    borderColor: "#FFFFFF",
-    borderWidth: 2,
-  },
-  markerStart: {
-    backgroundColor: "#D9A441",
-    borderColor: "#FFFFFF",
-    borderWidth: 2,
-  },
-  daysContainer: {
-    gap: 10,
-    paddingVertical: 20,
-  },
-  dayButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#D9E2EC",
-    backgroundColor: "#FFFFFF",
-  },
-  activeDayButton: {
-    backgroundColor: "#102A43",
-    borderColor: "#102A43",
-  },
-  dayButtonText: {
-    fontFamily: "LoraRegular",
-    fontSize: 14,
-    color: "#486581",
-  },
-  activeDayButtonText: {
-    color: "#FFFFFF",
-  },
-  dayCard: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    padding: 20,
-  },
-  dayLabel: {
-    fontFamily: "LoraSemiBold",
-    fontSize: 12,
-    letterSpacing: 1.5,
-    color: "#6096A8",
-    marginBottom: 10,
-  },
-  dayTitle: {
-    fontFamily: "LoraSemiBoldItalic",
-    fontSize: 22,
-    color: "#102A43",
-    marginBottom: 10,
-  },
-  dayDescription: {
-    fontFamily: "LoraRegular",
-    fontSize: 14,
-    lineHeight: 22,
-    color: "#627D98",
-    marginBottom: 12,
-  },
-  dividerActivities: {
-    height: 1,
-    backgroundColor: "#D9E2EC",
-    marginBottom: 12,
-  },
-  activitiesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    columnGap: 18,
-    rowGap: 14,
-  },
-  activityItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
-  },
-  activityText: {
-    fontFamily: "LoraRegular",
-    fontSize: 12,
-    color: "#486581",
   },
 });

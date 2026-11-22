@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import Animated, {
-    Extrapolation,
-    interpolate,
-    useAnimatedReaction,
-    useAnimatedStyle,
-    useSharedValue,
-    type SharedValue,
+  Extrapolation,
+  interpolate,
+  useAnimatedReaction,
+  useAnimatedStyle,
+  useSharedValue,
+  type SharedValue,
 } from "react-native-reanimated";
 
 type ScrollSectionProps = {
@@ -23,7 +23,7 @@ export default function ScrollSection({
   const hasAnimated = useSharedValue(false);
   const isMeasured = useSharedValue(false);
 
-  const initialX = direction === "left" ? -100 : 100;
+  const initialX = direction === "left" ? -80 : 80;
 
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = hasAnimated.value
