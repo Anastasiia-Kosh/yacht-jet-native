@@ -58,27 +58,32 @@ export default function Booking() {
         <ScrollView
           style={[
             styles.bookingContainer,
-            { bottom: insets.bottom + 24, top: insets.top + 20 },
+            { bottom: insets.bottom + 20, top: insets.top + 20 },
           ]}
           contentContainerStyle={styles.bookingContent}
           keyboardShouldPersistTaps="handled"
         >
+          <Text style={styles.title}>Booking {trip.title} trip </Text>
           <View style={styles.featureContainer}>
-            <Ionicons name="location-outline" size={18} color="#627D98" />
+            <Ionicons name="location-outline" size={18} color="#213445" />
             <Text style={styles.feature}>{trip.location}</Text>
           </View>
           <View style={styles.featureContainer}>
-            <Ionicons name="calendar-outline" size={18} color="#486581" />
-            <Text style={styles.feature}>{trip.duration}</Text>
+            <Ionicons name="calendar-outline" size={18} color="#213445" />
+            <Text style={styles.feature}>{trip.duration} days</Text>
           </View>
           <View style={styles.featureContainer}>
-            <Ionicons name="cash-outline" size={18} color="#486581" />
+            <Ionicons name="cash-outline" size={18} color="#213445" />
             <Text style={styles.feature}>
               ${trip.price.toLocaleString("en-US")} / per trip
             </Text>
           </View>
-          <Text style={styles.title}>Booking {trip.title} trip </Text>
-          <BookingForm onSubmit={handleBooking} />
+
+          <BookingForm
+            onSubmit={handleBooking}
+            maxGuests={trip.maxGuests}
+            duration={trip.duration}
+          />
           <BookingSuccessModal
             visible={isModalVisible}
             firstName={firstName}
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
   },
   bookingContent: {
     gap: 6,
-    paddingVertical: 40,
+    paddingVertical: 20,
     paddingHorizontal: 20,
     alignItems: "center",
     flexGrow: 1,
@@ -135,6 +140,5 @@ const styles = StyleSheet.create({
     fontFamily: "LoraSemiBoldItalic",
     color: "#102A43",
     textAlign: "center",
-    marginTop: 32,
   },
 });

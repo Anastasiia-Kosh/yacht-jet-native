@@ -50,7 +50,7 @@ export type TripItem = {
   description: string;
   price: number;
   location: string;
-  duration: string;
+  duration: number;
   maxGuests: number;
   yachtType: string;
   img: ImageSourcePropType;

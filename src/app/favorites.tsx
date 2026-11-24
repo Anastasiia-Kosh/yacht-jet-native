@@ -53,7 +53,7 @@ export default function Favorites() {
         </View>
         <View style={styles.featureContainer}>
           <Ionicons name="calendar-outline" size={18} color="#486581" />
-          <Text style={styles.feature}>{item.duration}</Text>
+          <Text style={styles.feature}>{item.duration} days</Text>
         </View>
         <View style={styles.featureContainer}>
           <Ionicons name="cash-outline" size={18} color="#486581" />

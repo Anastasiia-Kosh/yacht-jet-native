@@ -3,12 +3,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import BookingCalendar from "./BookingCalendar";
 
 type BookingFormProps = {
   onSubmit: (data: BookingFormData) => void;
+  maxGuests: number;
+  duration: number;
 };
 
-export default function BookingForm({ onSubmit }: BookingFormProps) {
+export default function BookingForm({
+  onSubmit,
+  maxGuests,
+  duration,
+}: BookingFormProps) {
   const {
     control,
     handleSubmit,
@@ -21,12 +28,19 @@ export default function BookingForm({ onSubmit }: BookingFormProps) {
       lastName: "",
       email: "",
       phone: "",
+      guests: 1,
+      departureDate: "",
     },
   });
 
   const [focusedField, setFocusedField] = useState<
     keyof BookingFormData | null
   >(null);
+
+  const guestOptions = Array.from(
+    { length: maxGuests },
+    (_, index) => index + 1,
+  );
 
   return (
     <View style={styles.formContainer}>
@@ -143,6 +157,57 @@ export default function BookingForm({ onSubmit }: BookingFormProps) {
           </View>
         )}
       />
+      <Controller
+        control={control}
+        name="guests"
+        render={({ field: { onChange, value } }) => (
+          <View style={styles.guestCounter}>
+            <Text style={styles.guestDropdownText}>
+              {value} {value === 1 ? "guest" : "guests"}
+            </Text>
+
+            <View style={styles.guestButtons}>
+              <Pressable
+                onPress={() => onChange(Math.max(1, value - 1))}
+                disabled={value <= 1}
+                style={[
+                  styles.guestButton,
+                  value <= 1 && styles.guestButtonDisabled,
+                ]}
+              >
+                <Text style={styles.guestButtonText}>−</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => onChange(Math.min(maxGuests, value + 1))}
+                disabled={value >= maxGuests}
+                style={[
+                  styles.guestButton,
+                  value >= maxGuests && styles.guestButtonDisabled,
+                ]}
+              >
+                <Text style={styles.guestButtonText}>+</Text>
+              </Pressable>
+            </View>
+
+            {errors.guests && (
+              <Text style={styles.errorMessage}>{errors.guests.message}</Text>
+            )}
+          </View>
+        )}
+      />
+      <Controller
+        control={control}
+        name="departureDate"
+        render={({ field: { onChange, value } }) => (
+          <BookingCalendar
+            value={value}
+            onChange={onChange}
+            duration={duration}
+          />
+        )}
+      />
+
       <Pressable style={styles.button} onPress={() => handleSubmit(onSubmit)()}>
         <Text style={styles.buttonText}>Book Now</Text>
       </Pressable>
@@ -152,7 +217,6 @@ export default function BookingForm({ onSubmit }: BookingFormProps) {
 
 const styles = StyleSheet.create({
   formContainer: {
-    marginTop: 14,
     width: "100%",
     flex: 1,
   },
@@ -174,6 +238,49 @@ const styles = StyleSheet.create({
   },
   inputError: {
     borderColor: "#D32F2F",
+  },
+  guestCounter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 8,
+    borderColor: "#102A43",
+    borderWidth: 1,
+    marginTop: 18,
+    marginBottom: 18,
+  },
+
+  guestDropdownText: {
+    fontFamily: "LoraRegular",
+    fontSize: 16,
+    color: "#102A43",
+  },
+
+  guestButtons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+
+  guestButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#102A43",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  guestButtonDisabled: {
+    opacity: 0.35,
+  },
+  guestButtonText: {
+    fontFamily: "LoraRegular",
+    fontSize: 22,
+    color: "#102A43",
   },
   errorMessage: {
     fontFamily: "LoraRegular",

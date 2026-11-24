@@ -24,7 +24,7 @@ export default function TripDetails({ trip }: { trip: TripItem }) {
             <Ionicons name="calendar-outline" size={24} color="#486581" />
           </View>
           <Text style={styles.featureLabel}>Duration</Text>
-          <Text style={styles.featureValue}>{trip.duration}</Text>
+          <Text style={styles.featureValue}>{trip.duration} days</Text>
         </View>
 
         <View style={styles.featureItem}>

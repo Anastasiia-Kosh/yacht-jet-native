@@ -65,22 +65,24 @@ export default function Profile() {
           { paddingTop: insets.top + 20, paddingBottom: insets.bottom + 24 },
         ]}
       >
-        <Text style={styles.title}>My Profile</Text>
-        <Text style={styles.description}>Welcome aboard,</Text>
-        <Text style={styles.description}>{profile.firstName}!</Text>
-
-        <View style={styles.avatarContainer}>
-          <Image
-            source={
-              profile.avatar
-                ? { uri: profile.avatar }
-                : require("../../assets/images/profile/default-avatar.png")
-            }
-            style={styles.avatar}
-            resizeMode="cover"
-          />
+        <View style={styles.profileHeader}>
+          <View>
+            <Text style={styles.title}>My Profile</Text>
+            <Text style={styles.description}>Welcome aboard,</Text>
+            <Text style={styles.description}>{profile.firstName}!</Text>
+          </View>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={
+                profile.avatar
+                  ? { uri: profile.avatar }
+                  : require("../../assets/images/profile/default-avatar.png")
+              }
+              style={styles.avatar}
+              resizeMode="cover"
+            />
+          </View>
         </View>
-
         <View style={styles.profileWrap}>
           <View style={styles.profileContainer}>
             <Ionicons name="person" size={20} color="#102A43" />
@@ -102,25 +104,53 @@ export default function Profile() {
           </View>
         </View>
 
-        <View style={styles.buttonContainer}>
-          <Link href="/profile/edit" asChild>
-            <Pressable style={styles.button}>
-              <Text style={styles.buttonText}>Edit profile</Text>
+        <View style={styles.activityContainer}>
+          <Link href="/favorites" asChild>
+            <Pressable style={styles.activityButton}>
+              <Ionicons name="heart" size={20} color="#102A43" />
+              <Text style={styles.activityButtonText}>My favorites</Text>
+              <Ionicons
+                name="arrow-forward-circle-outline"
+                size={24}
+                color="#102A43"
+              />
             </Pressable>
           </Link>
-
-          <Pressable style={styles.buttonDelete} onPress={handleOpenModal}>
-            <Text style={styles.buttonDeleteText}>Delete</Text>
-          </Pressable>
+          <Link href="/favorites" asChild>
+            <Pressable style={styles.activityButton}>
+              <Ionicons name="calendar" size={20} color="#102A43" />
+              <Text style={styles.activityButtonText}>My bookings</Text>
+              <Ionicons
+                name="arrow-forward-circle-outline"
+                size={24}
+                color="#102A43"
+              />
+            </Pressable>
+          </Link>
         </View>
-        <Pressable onPress={() => router.back()} style={styles.buttonBack}>
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={20}
-            color="#102A43"
-          />
-          <Text style={styles.buttonBackText}>Go back</Text>
-        </Pressable>
+
+        <View style={styles.buttonContainer}>
+          <Pressable onPress={() => router.back()} style={styles.buttonBack}>
+            <Ionicons
+              name="arrow-back-circle-outline"
+              size={20}
+              color="#102A43"
+            />
+            <Text style={styles.buttonBackText}>Go back</Text>
+          </Pressable>
+
+          <View style={styles.buttonEditContainer}>
+            <Link href="/profile/edit" asChild>
+              <Pressable style={styles.button}>
+                <Text style={styles.buttonText}>Edit profile</Text>
+              </Pressable>
+            </Link>
+
+            <Pressable style={styles.buttonDelete} onPress={handleOpenModal}>
+              <Text style={styles.buttonText}>Delete</Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
       <ProfileDeleteModal
         visible={isModalVisible}
@@ -160,7 +190,8 @@ const styles = StyleSheet.create({
   profileHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 20,
+    justifyContent: "space-between",
+    marginBottom: 32,
   },
   avatarContainer: {
     width: 120,
@@ -169,10 +200,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#FFFFFF",
     overflow: "hidden",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: 20,
-    marginTop: 10,
   },
   avatar: {
     width: "100%",
@@ -185,7 +212,7 @@ const styles = StyleSheet.create({
     gap: 10,
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderRadius: 10,
-    padding: 14,
+    padding: 10,
     width: "100%",
   },
   profileData: {
@@ -194,38 +221,56 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: "#102A43",
   },
+  activityContainer: {
+    gap: 14,
+    marginTop: 42,
+    marginRight: "auto",
+  },
+  activityButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 30,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+  },
+  activityButtonText: {
+    fontFamily: "LoraMedium",
+    fontSize: 16,
+    color: "#102A43",
+  },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 24,
-    gap: 10,
+    justifyContent: "space-between",
+    marginTop: "auto",
     width: "100%",
+    alignItems: "flex-end",
+  },
+  buttonEditContainer: {
+    alignItems: "flex-end",
+    gap: 16,
   },
   button: {
     backgroundColor: "#102A43",
-    paddingVertical: 8,
-    borderRadius: 8,
+    width: 130,
+    paddingVertical: 10,
     alignItems: "center",
-    width: "70%",
-    justifyContent: "center",
+    borderRadius: 10,
   },
   buttonText: {
-    fontFamily: "LoraMedium",
-    color: "#FFFFFF",
-    fontSize: 20,
-  },
-  buttonDelete: {
-    backgroundColor: "#431010",
-    paddingVertical: 8,
-    width: "30%",
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonDeleteText: {
     fontFamily: "LoraRegular",
     color: "#FFFFFF",
     fontSize: 15,
+  },
+  buttonDelete: {
+    backgroundColor: "#431010",
+    width: 130,
+    paddingVertical: 10,
+    alignItems: "center",
+    borderRadius: 10,
   },
   buttonBack: {
     flexDirection: "row",
@@ -235,7 +280,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 30,
-    marginTop: "auto",
+    marginTop: 24,
     marginRight: "auto",
   },
   buttonBackText: {

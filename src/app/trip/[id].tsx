@@ -57,9 +57,9 @@ export default function Trip() {
       <ScrollSection scrollY={scrollY} direction="left">
         <TripAbout description={trip.description} image={trip.imgDescr} />
       </ScrollSection>
-      <ScrollSection scrollY={scrollY} direction="right">
+      {/* <ScrollSection scrollY={scrollY} direction="right">
         <TripRoute itinerary={trip.itinerary} />
-      </ScrollSection>
+      </ScrollSection> */}
       <ScrollSection scrollY={scrollY} direction="left">
         <TripGallery trip={trip} />
       </ScrollSection>

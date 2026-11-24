@@ -18,6 +18,8 @@ export default function Trips() {
   const favoriteTranslateY = useSharedValue(0);
   const profileTranslateX = useSharedValue(0);
   const profileTranslateY = useSharedValue(0);
+  const bookingsTranslateX = useSharedValue(0);
+  const bookingsTranslateY = useSharedValue(0);
   const menuRotation = useSharedValue(0);
 
   const animatedStyleFavorite = useAnimatedStyle(() => {
@@ -38,6 +40,15 @@ export default function Trips() {
       ],
     };
   });
+  const animatedStyleBookings = useAnimatedStyle(() => {
+    return {
+      zIndex: 2,
+      transform: [
+        { translateX: bookingsTranslateX.value },
+        { translateY: bookingsTranslateY.value },
+      ],
+    };
+  });
   const animatedStyleMenu = useAnimatedStyle(() => {
     return {
       transform: [
@@ -51,15 +62,19 @@ export default function Trips() {
     favoriteTranslateY.value = withSpring(0);
     profileTranslateX.value = withSpring(0);
     profileTranslateY.value = withSpring(0);
+    bookingsTranslateX.value = withSpring(0);
+    bookingsTranslateY.value = withSpring(0);
     menuRotation.value = withSpring(0);
   };
   const toggleMenu = () => {
     if (isMenuOpen === false) {
       setIsMenuOpen(true);
-      favoriteTranslateX.value = withSpring(-12);
-      favoriteTranslateY.value = withSpring(55);
-      profileTranslateX.value = withSpring(-55);
-      profileTranslateY.value = withSpring(12);
+      favoriteTranslateX.value = withSpring(0);
+      favoriteTranslateY.value = withSpring(60);
+      profileTranslateX.value = withSpring(-60);
+      profileTranslateY.value = withSpring(0);
+      bookingsTranslateX.value = withSpring(-45);
+      bookingsTranslateY.value = withSpring(45);
       menuRotation.value = withSpring(1);
     } else {
       closeMenu();
@@ -86,7 +101,7 @@ export default function Trips() {
         <Animated.View style={animatedStyleFavorite}>
           <Link href="/favorites" onPress={closeMenu} asChild>
             <Pressable style={styles.buttonMenuPoint}>
-              <Ionicons name={"heart-outline"} size={20} color="#FFFFFF" />
+              <Ionicons name={"heart"} size={20} color="#FFFFFF" />
             </Pressable>
           </Link>
         </Animated.View>
@@ -94,6 +109,13 @@ export default function Trips() {
           <Link href="/profile" onPress={closeMenu} asChild>
             <Pressable style={styles.buttonMenuPoint}>
               <Ionicons name={"person"} size={20} color="#FFFFFF" />
+            </Pressable>
+          </Link>
+        </Animated.View>
+        <Animated.View style={animatedStyleBookings}>
+          <Link href="/profile" onPress={closeMenu} asChild>
+            <Pressable style={styles.buttonMenuPoint}>
+              <Ionicons name={"calendar"} size={20} color="#FFFFFF" />
             </Pressable>
           </Link>
         </Animated.View>
@@ -136,9 +158,9 @@ const styles = StyleSheet.create({
     right: 20,
   },
   buttonMenuPoint: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1,
