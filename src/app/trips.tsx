@@ -113,7 +113,7 @@ export default function Trips() {
           </Link>
         </Animated.View>
         <Animated.View style={animatedStyleBookings}>
-          <Link href="/profile" onPress={closeMenu} asChild>
+          <Link href="/my-bookings" onPress={closeMenu} asChild>
             <Pressable style={styles.buttonMenuPoint}>
               <Ionicons name={"calendar"} size={20} color="#FFFFFF" />
             </Pressable>

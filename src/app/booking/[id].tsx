@@ -1,7 +1,9 @@
 import BookingForm from "@/components/booking/BookingForm";
 import BookingSuccessModal from "@/components/booking/BookingSuccessModal";
+import { useBooking } from "@/context/BookingContext";
 import { trips } from "@/data/trips";
 import type { BookingFormData } from "@/schemas/bookingSchema";
+import { NewBooking } from "@/types/booking";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
@@ -19,24 +21,12 @@ import EmptyState from "../../components/common/EmptyState";
 
 export default function Booking() {
   const insets = useSafeAreaInsets();
+  const { addBooking } = useBooking();
   const { id } = useLocalSearchParams<{ id: string }>();
   const trip = trips.find((trip) => trip.id === id);
 
   const [firstName, setFirstName] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const handleBooking = (data: BookingFormData) => {
-    setFirstName(data.firstName);
-    setIsModalVisible(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-
-    router.replace({
-      pathname: "/trip/[id]",
-      params: { id },
-    });
-  };
 
   if (!trip) {
     return (
@@ -48,6 +38,36 @@ export default function Booking() {
       />
     );
   }
+
+  const handleBooking = (data: BookingFormData) => {
+    setFirstName(data.firstName);
+    const returnDate = new Date(`${data.departureDate}T12:00:00`);
+    returnDate.setDate(returnDate.getDate() + trip.duration - 1);
+    const newBooking: NewBooking = {
+      trip: {
+        id: trip.id,
+        title: trip.title,
+        location: trip.location,
+        price: trip.price,
+        duration: trip.duration,
+        yachtType: trip.yachtType,
+      },
+      customer: data,
+      returnDate: returnDate.toISOString().split("T")[0],
+    };
+    addBooking(newBooking);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+
+    router.replace({
+      pathname: "/trip/[id]",
+      params: { id },
+    });
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.booking}

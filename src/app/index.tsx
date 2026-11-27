@@ -26,8 +26,9 @@ export default function Index() {
         <Text style={styles.title}>Your next sea adventure starts here</Text>
         <Text style={styles.subtitle}>
           Discover unforgettable sailing trips, explore beautiful destinations
-          and find the perfect yacht for your journey
+          and find the perfect yacht for your journey with
         </Text>
+        <Text style={styles.subtitleLogo}>YachtJet</Text>
         <Link href="/trips" asChild>
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Explore Trips</Text>
@@ -63,12 +64,19 @@ const styles = StyleSheet.create({
     color: "#102A43",
     marginBottom: 18,
   },
+
   subtitle: {
     fontFamily: "LoraMedium",
     color: "#213445",
     textAlign: "center",
     fontSize: 16,
     lineHeight: 24,
+  },
+  subtitleLogo: {
+    fontFamily: "LoraSemiBoldItalic",
+    textAlign: "center",
+    fontSize: 20,
+    color: "#102A43",
   },
   button: {
     backgroundColor: "#102A43",

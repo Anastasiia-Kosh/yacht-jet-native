@@ -116,7 +116,7 @@ export default function Profile() {
               />
             </Pressable>
           </Link>
-          <Link href="/favorites" asChild>
+          <Link href="/my-bookings" asChild>
             <Pressable style={styles.activityButton}>
               <Ionicons name="calendar" size={20} color="#102A43" />
               <Text style={styles.activityButtonText}>My bookings</Text>

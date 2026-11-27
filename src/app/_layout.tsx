@@ -1,3 +1,4 @@
+import { BookingProvider } from "@/context/BookingContext";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { ProfileProvider } from "@/context/ProfileContext";
 import {
@@ -40,12 +41,14 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <ProfileProvider>
           <FavoritesProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: "fade_from_bottom",
-              }}
-            />
+            <BookingProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  animation: "fade_from_bottom",
+                }}
+              />
+            </BookingProvider>
           </FavoritesProvider>
         </ProfileProvider>
       </SafeAreaProvider>
