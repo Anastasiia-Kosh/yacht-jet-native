@@ -1,3 +1,4 @@
+import AppLoaderGate from "@/components/common/AppLoaderGate";
 import { BookingProvider } from "@/context/BookingContext";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { ProfileProvider } from "@/context/ProfileContext";
@@ -42,12 +43,14 @@ export default function RootLayout() {
         <ProfileProvider>
           <FavoritesProvider>
             <BookingProvider>
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                  animation: "fade_from_bottom",
-                }}
-              />
+              <AppLoaderGate>
+                <Stack
+                  screenOptions={{
+                    headerShown: false,
+                    animation: "fade_from_bottom",
+                  }}
+                />
+              </AppLoaderGate>
             </BookingProvider>
           </FavoritesProvider>
         </ProfileProvider>
