@@ -6,19 +6,19 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
-    FlatList,
-    Image,
-    ListRenderItem,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  FlatList,
+  Image,
+  ListRenderItem,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function MyBookings() {
   const insets = useSafeAreaInsets();
-  const { bookings, isLoaded, cancelBooking } = useBooking();
+  const { bookings, cancelBooking } = useBooking();
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(
     null,
   );
@@ -27,9 +27,7 @@ export default function MyBookings() {
     setSelectedBookingId(null);
   };
   const hasBookings = bookings.length > 0;
-  if (!isLoaded) {
-    return null;
-  }
+
   if (!hasBookings) {
     return (
       <EmptyState

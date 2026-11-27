@@ -9,12 +9,14 @@ type BookingFormProps = {
   onSubmit: (data: BookingFormData) => void;
   maxGuests: number;
   duration: number;
+  isModalVisible: boolean;
 };
 
 export default function BookingForm({
   onSubmit,
   maxGuests,
   duration,
+  isModalVisible,
 }: BookingFormProps) {
   const {
     control,
@@ -36,11 +38,6 @@ export default function BookingForm({
   const [focusedField, setFocusedField] = useState<
     keyof BookingFormData | null
   >(null);
-
-  const guestOptions = Array.from(
-    { length: maxGuests },
-    (_, index) => index + 1,
-  );
 
   return (
     <View style={styles.formContainer}>
@@ -208,7 +205,11 @@ export default function BookingForm({
         )}
       />
 
-      <Pressable style={styles.button} onPress={() => handleSubmit(onSubmit)()}>
+      <Pressable
+        style={styles.button}
+        onPress={() => handleSubmit(onSubmit)()}
+        disabled={isModalVisible}
+      >
         <Text style={styles.buttonText}>Book Now</Text>
       </Pressable>
     </View>

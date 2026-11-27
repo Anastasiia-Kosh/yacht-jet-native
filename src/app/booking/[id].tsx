@@ -103,6 +103,7 @@ export default function Booking() {
             onSubmit={handleBooking}
             maxGuests={trip.maxGuests}
             duration={trip.duration}
+            isModalVisible={isModalVisible}
           />
           <BookingSuccessModal
             visible={isModalVisible}

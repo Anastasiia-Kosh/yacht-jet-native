@@ -18,12 +18,9 @@ import EmptyState from "../components/common/EmptyState";
 
 export default function Favorites() {
   const insets = useSafeAreaInsets();
-  const { favoriteIds, isLoaded } = useFavorites();
+  const { favoriteIds } = useFavorites();
   const favoriteTrips = trips.filter((trip) => favoriteIds.includes(trip.id));
 
-  if (!isLoaded) {
-    return null;
-  }
   if (favoriteTrips.length === 0) {
     return (
       <EmptyState

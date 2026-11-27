@@ -2,6 +2,7 @@ import ProfileForm from "@/components/profile/ProfileForm";
 import { useProfile } from "@/context/ProfileContext";
 import { ProfileFormData } from "@/schemas/profileSchema";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -15,20 +16,22 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function ProfileEdit() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { saveProfile, isLoaded } = useProfile();
+  const { saveProfile } = useProfile();
+
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleProfileSubmit = async (data: ProfileFormData) => {
     try {
+      setIsSaving(true);
       await saveProfile(data);
       router.replace("/profile");
     } catch (error) {
       console.warn("Failed to update profile:", error);
+    } finally {
+      setIsSaving(false);
     }
   };
 
-  if (!isLoaded) {
-    return null;
-  }
   return (
     <KeyboardAvoidingView
       style={styles.background}
@@ -48,7 +51,7 @@ export default function ProfileEdit() {
           contentContainerStyle={styles.bookingContent}
           keyboardShouldPersistTaps="handled"
         >
-          <ProfileForm onSubmit={handleProfileSubmit} />
+          <ProfileForm onSubmit={handleProfileSubmit} isSaving={isSaving} />
         </ScrollView>
       </View>
     </KeyboardAvoidingView>

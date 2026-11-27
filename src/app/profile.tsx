@@ -9,13 +9,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Profile() {
   const insets = useSafeAreaInsets();
-  const { profile, isLoaded, deleteProfile } = useProfile();
+  const { profile, deleteProfile } = useProfile();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const hasProfile = profile.firstName.trim().length > 0;
-  if (!isLoaded) {
-    return null;
-  }
+
   if (!hasProfile) {
     return (
       <EmptyState

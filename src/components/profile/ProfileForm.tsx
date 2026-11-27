@@ -7,6 +7,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   StyleSheet,
@@ -17,9 +18,10 @@ import {
 
 type ProfileFormProps = {
   onSubmit: (data: ProfileFormData) => void;
+  isSaving: boolean;
 };
 
-export default function ProfileForm({ onSubmit }: ProfileFormProps) {
+export default function ProfileForm({ onSubmit, isSaving }: ProfileFormProps) {
   const { profile } = useProfile();
   const {
     control,
@@ -41,8 +43,6 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
   >(null);
 
   const avatar = watch("avatar");
-  const previousAvatar = profile.avatar;
-
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
@@ -230,10 +230,15 @@ export default function ProfileForm({ onSubmit }: ProfileFormProps) {
         <Pressable
           style={styles.button}
           onPress={() => handleSubmit(onSubmit)()}
+          disabled={isSaving}
         >
-          <Text style={styles.buttonText}>
-            {hasProfile ? "Save changes" : "Save profile"}
-          </Text>
+          {isSaving ? (
+            <ActivityIndicator color="#FFFFFF" />
+          ) : (
+            <Text style={styles.buttonText}>
+              {hasProfile ? "Save changes" : "Save profile"}
+            </Text>
+          )}
         </Pressable>
       </View>
     </View>
